@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AutoDCApp">
+<head>
+	<meta charset="utf-8" />
+
+	<link rel="icon" href="/favicon2.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!--     Fonts and icons     -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+	<link href="nucleo/css/nucleo-icons.css" rel="stylesheet" />
+	<link href="css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+	<link type="text/css" href="css/dc.css" rel="stylesheet"/>
+	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+	<link rel="stylesheet" type="text/css" href="css/dc.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src='js/bootstrap.min.js' type='text/javascript'></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/d3.js"></script>
+	<script type="text/javascript" src="js/d3.min.js"></script>
+	<script type="text/javascript" src="js/crossfilter.js"></script>
+	<script type="text/javascript" src="js/crossfilter.min.js"></script>
+	<script type="text/javascript" src="js/updated/dc.js"></script>
+	<!--   Core JS Files   -->
+	<script src="js/core/popper.min.js" type="text/javascript"></script>
+	<!-- <script src="assets/js/core/bootstrap.min.js" type="text/javascript"></script> -->
+	<script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	<script type="text/javascript" src="js/lodash.min.js"></script>
+	<script type="text/javascript" src="js/papaparse.min.js"></script>
+	<script type="text/javascript" src="js/FileSaver.min.js"></script>
+	<script type="text/javascript" src="js/moment.min.js"></script>
+	<script type="text/javascript" src="js/autodc_controller.js"></script>
+	<script src="js/plugins/chartjs.min.js"></script>
+	<script src="js/black-dashboard.js?v=1.0.0" type="text/javascript"></script>
+<title>UN Dashboard</title>
+<style>
+.filter-count{
+	color: white;
+	font-weight: bold; }
+.total-count{
+		color: white;
+		font-weight: bold; }
+
+.flexChart {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+		/* padding-left: 75px;
+		padding-right: 75px;
+		padding-top: 75px;
+		padding-bottom: 75px; */
+  	}
+.flexChart > div {
+		height: 90%;
+}
+.flexChart2 {
+    display: flex;
+    flex-direction: column;
+    width: 870px;
+    height: 400px;
+}
+
+.flexChart2 > div {
+    height: 90%;
+}
+
+.grid {
+    display: flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+	}
+	div {
+    text-align: justify;
+    text-justify: inter-word;
+}
+img {
+    object-fit: cover;
+}
+</style>
+</head>
+<body ng-controller="AutoDCController" ng-init="initialize()">
+	<!-- <div class="wrapper"> -->
+    <div class="sidebar">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a class="simple-text logo-normal">
+            Armed Conflict Analytics
+          </a>
+        </div>
+        <ul class="nav">
+					<li class="active ">
+            <a href= "index.html">
+              <i class="tim-icons icon-components"></i>
+              <p>About</p>
+            </a>
+          </li>
+					<li>
+            <a href= "dataupload.html">
+              <i class="tim-icons icon-spaceship"></i>
+              <p>Data Upload</p>
+            </a>
+          </li>
+          <li>
+            <a href= "dashboard.html">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="sankey.html">
+              <i class="tim-icons icon-atom"></i>
+              <p>Sankey Diagram</p>
+            </a>
+          </li>
+          <li>
+            <a href="map.html">
+              <i class="tim-icons icon-pin"></i>
+              <p>Map</p>
+            </a>
+					</li>
+					<li>
+						<a href="datacorrelation.html">
+							<i class= "tim-icons icon-zoom-split"></i>
+							<p>Data Correlation</p>
+						</a>
+					</li>
+					<li>
+            <a href="datadownload.html">
+              <i class="tim-icons icon-puzzle-10"></i>
+              <p>Data Download</p>
+            </a>
+          </li>
+					<li>
+            <a href="team.html">
+              <i class= "tim-icons icon-molecule-40"></i>
+              <p>Team Members</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+	<!-- </div> -->
+
+<!-- <div class='container' id='main-container'>
+<div class='content'> -->
+<div class='main-panel'>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+	<div class="container-fluid">
+		<div class="navbar-wrapper">
+			<div class="navbar-toggle d-inline">
+				<button type="button" class="navbar-toggler">
+					<span class="navbar-toggler-bar bar1"></span>
+					<span class="navbar-toggler-bar bar2"></span>
+					<span class="navbar-toggler-bar bar3"></span>
+				</button>
+			<a class="navbar-brand" href="About.html"></a>
+		</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-bar navbar-kebab"></span>
+			<span class="navbar-toggler-bar navbar-kebab"></span>
+			<span class="navbar-toggler-bar navbar-kebab"></span>
+		</button>
+</div>
+</nav>
+      <!-- End Navbar -->
+	<div class= 'content'>
+<div class="row">
+		<div class="col-md-8">
+				<img src="Images/cps.jpg" height="160px" width="800px"/>
+		</div>
+		<div class="col-md-2">
+				<img src="Images/UN.png" height="160px" width="200px"/>
+		</div>
+		<div class="col-md-2">
+				<img src="Images/Uniteideas.jpg" height="160px" width="200px"/>
+		</div>
+</div>
+<div class="row">
+		<div class="col-md-12">
+			<br>
+<h5>Armed conflicts within the states are generally political conflicts involving citizens fighting for internal change. It involves a group of people who are armed and ready to fight for the goal of seizing governmental powers. This group may include militias and armed civilians along with the regular armies. These conflicts result in the collapse of state institutions mainly the police and judiciary. The fighting in conflicts are usually intermittent and generally does not occur on well-defined battlefields. The twentieth century saw an upward trend in the fatalities due to armed conflicts.</h5>
+<br>
+<h5>This dashboard represents the number of fatalities caused by armed conflict in African, MiddleEastern and Asian countries. The basis for visualizations are the violent events recorded in a particular year resulting in the deaths and its perpetrators causing the events.</h5>
+<br>
+<h5>Data presented in our charts contain detailed information regarding armed conflict events occuring in select regions around the world. Variables of interest include Location (countries, states, and cities where conflict events are occuring), Event Type (types of conflict activities or events occuring in various regions), Target (industries and organizations that are being targeted), Nationality of Target, Perpetrators (groups who are carrying out these armed conflict events), Weapon Type (weapons utilized during the events), Number of Fatalities caused by an event), and Date of specific events. </h5>
+<br>
+<h5> Data Source:
+<span> <a href="https://www.acleddata.com/data/">Acled Data
+</a>
+</span></h5>
+<div class= "col-md-12">
+<img src="Images/child1.jpg" height="350px" width="1200px"/>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
