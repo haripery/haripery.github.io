@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<!--     Fonts and icons     -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+	<link href="nucleo/css/nucleo-icons.css" rel="stylesheet" />
+
+	<link href="css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+
+	<link type="text/css" href="css/leaflet.css" rel="stylesheet"/>
+	<link type="text/css" href="css/MarkerCluster.Default.css" rel="stylesheet"/>
+	<link type="text/css" href="css/MarkerCluster.css" rel="stylesheet"/>
+
+	<link type="text/css" href="css/dc.css" rel="stylesheet"/>
+	<link type="text/css" href="css/leaflet-legend.css" rel="stylesheet"/>
+	<!-- <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' /> -->
+		<title>UN Dashboard</title>
+<style>
+h3{
+	font-weight: bold;
+}
+.card .card-body {
+  padding: 15px;
+  height: 300px;
+}
+img {
+    object-fit: cover;
+}
+</style>
+
+</head>
+<body>
+	<!-- <div class="wrapper"> -->
+    <div class="sidebar">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a class="simple-text logo-normal">
+            Armed Conflict Analytics
+          </a>
+        </div>
+        <ul class="nav">
+					<li>
+            <a href= "index.html">
+              <i class="tim-icons icon-components"></i>
+              <p>About</p>
+            </a>
+          </li>
+					<li>
+						<a href= "dataupload.html">
+							<i class="tim-icons icon-spaceship"></i>
+							<p>Data Upload</p>
+						</a>
+					</li>
+					<li>
+            <a href= "dashboard.html">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="sankey.html">
+              <i class="tim-icons icon-atom"></i>
+              <p>Sankey Diagram</p>
+            </a>
+          </li>
+          <li>
+            <a href="map.html">
+              <i class="tim-icons icon-pin"></i>
+              <p>Map</p>
+            </a>
+          </li>
+          <li>
+						<a href="datacorrelation.html">
+							<i class= "tim-icons icon-zoom-split"></i>
+							<p>Data Correlation</p>
+						</a>
+					</li>
+					<li>
+            <a href="datadownload.html">
+              <i class="tim-icons icon-puzzle-10"></i>
+              <p>Data Download</p>
+            </a>
+          </li>
+          <li class="active ">
+            <a href="team.html">
+              <i class= "tim-icons icon-molecule-40"></i>
+              <p>Team Members</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+	<!-- </div> -->
+
+<!-- <div class='container' id='main-container'>
+<div class='content'> -->
+<div class='main-panel'>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle d-inline">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            <a class="navbar-brand" href="About.html"></a>
+          </div>
+					<div id="searchcountry"></div>
+				</div>
+			</nav>
+
+      <!-- End Navbar -->
+			<div class="content">
+				<div class="row">
+						<div class="col-md-8">
+								<img src="Images/cps.jpg" height="160px" width="800px"/>
+						</div>
+						<div class="col-md-2">
+								<img src="Images/UN.png" height="160px" width="200px"/>
+						</div>
+						<div class="col-md-2">
+								<img src="Images/Uniteideas.jpg" height="160px" width="200px"/>
+						</div>
+				</div>
+				<div class="row">
+
+											<div class="col-md-3 text-left">
+												<br>
+												<h3>Core team members:</h3>
+		                <h4>Ashok Choudhary</h4>
+                    <h4>Hariprasath Periyasamy</h4>
+                    <h4>Abderrahim Hajji</h4>
+                    <h4>Pelin Fitzpatrick</h4>
+                    <h4>Hiral Rana</h4>
+	              </div>
+                <div class="col-md-3 text-Center">
+									<br>
+                  <h3>Faculty members:</h3>
+              <h4>Dr. Uwe Hohgrawe</h4>
+              <h4>Dr. Alice Cavallo</h4>
+          </div>
+								</div>
+								</div>
+											</div>
+											</div>
+											</div>
+											</div>
+											</div>
+
+</body>
+</html>

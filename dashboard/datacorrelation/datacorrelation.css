@@ -1,0 +1,127 @@
+body {
+    font-size: 12px;
+    font-family: Arial;
+    width: 940px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 5px;
+  }
+  
+  #container {
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  #chart {
+    position: relative;
+  }
+  
+  svg {
+    font: 10px sans-serif;
+  }
+  
+  div, form {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  text {
+    font: 10px sans-serif;
+  }
+  
+  td {
+    border-top: none;
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+  }
+  tr {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .left {
+    width: 64%;
+  }
+  
+  .header {
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  .right {
+    width: 34%;
+    float: right;
+  }
+  
+  #controls {
+    height: 530px;
+    overflow: scroll;
+  }
+  
+  a {
+    text-decoration: none;
+    padding-right: 3px;
+    color: #ccc;
+    font-weight: bold;
+  }
+  
+  .selected {
+    color: black;
+  }
+  
+  #error {
+    font-size: 10px;
+    color: darkRed;
+  }
+  
+  .label {
+    font-size: 10px;
+  }
+  .country {
+    fill-opacity: 0.5;
+    stroke: #555;
+    stroke-opacity: 0.5;
+  }
+  .country:hover {
+    fill-opacity: 1;
+    stroke-opacity: 1;
+  }
+  
+  .tip {
+    position: absolute;
+    pointer-events: none;
+    background-color: white;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0,0,0,.2);
+    border: 1px solid rgba(0,0,0,.3);
+    top: -100px;
+    left: -100px;
+    padding: 2px 5px 5px 0;
+  }
+  
+  .tip .row {
+    width: 100%;
+    padding: 0;
+    margin: 5px 0 0 5px;
+  }
+  
+  .tip .country {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  .tip .value {
+    font-weight: bold;
+  }
+  
+  .tip .units {
+    color: #888;
+  }
