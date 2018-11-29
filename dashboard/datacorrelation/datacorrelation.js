@@ -61,7 +61,7 @@ d3.csv("datacorrelation.csv", clean, function(data) {
     {value: 'exp'}
   ];
   var func;
-  header('Interploation Function');
+  header('Interpolation Function');
   var funcTable = table(funcs);
   row(funcTable, funcs, '', 'interp-func');
   funcTable.selectAll('a').on('click', selectFunc);
@@ -80,7 +80,7 @@ d3.csv("datacorrelation.csv", clean, function(data) {
     {value: 'in-out'}
   ];
   var mode;
-  header('Interploation Mode');
+  header('Interpolation Mode');
   var modeTable = table(modes);
   row(modeTable, modes, '', 'interp-mode');
   modeTable.selectAll('a').on('click', selectMode);
@@ -275,38 +275,28 @@ d3.csv("datacorrelation.csv", clean, function(data) {
       });
 23
       var countries = svg.selectAll('.country').data(filteredData, function (d) {
-        
-        // Select Country from filter
-        var selCountry = document.getElementById('countries')
-        selCountry = selCountry.options[selCountry.selectedIndex].value
-        // Select Year from filter
-        var selYear = document.getElementById('years')
-        selYear = selYear.options[selYear.selectedIndex].value
-
-
+        return d.Country;
+        /*var selCountry = document.getElementById('countries')
+        selCountry = selCountry.options[selCountry.selectedIndex].value;
         if((selCountry === 'All Countries')){
           return d.Country;
         }
         else if((selCountry === d.Country)){
           return selCountry;
-        }
-
-        /*if((d.Country === selCountry) && (d.year === selYear)){
-          return selCountry;
-        }
-        if((d.Country === selCountry) && (d.year === selYear)){
-          return selCountry;
-        }
-        else if((d.Country === selCountry) && (selYear !== 'All Years')){
-          return;
-        }
-        else if((d.Country === selCountry) && (selYear === 'All Years')){
-          return selCountry;
-        }
-        else if(selCountry === 'All Countries' && selYear === 'All Years'){
-          return d.Country
         }*/
       });
+
+        var years = svg.selectAll('.country').data(filteredData, function (d) {
+          return d.Year;
+          /*var selYear = document.getElementById('years')
+          selYear = selYear.options[selYear.selectedIndex].value
+          if((selYear === 'All Years')){
+            return d.Year;
+          }
+          else if((selYear === d.Year)){
+            return selYear;
+          }*/
+        });
 
       countries.transition().duration(transitionDuration)
         .ease(easingFunc)
@@ -319,6 +309,24 @@ d3.csv("datacorrelation.csv", clean, function(data) {
           .on("mouseover", mouseover)
           .call(place);
       countries.exit()
+        .transition()
+        .duration(transitionDuration)
+        .ease(easingFunc)
+        .remove();
+
+      
+      
+      years.transition().duration(transitionDuration)
+        .ease(easingFunc)
+        .call(place);
+        years.enter().append('circle')
+          .attr('class', 'country')
+          .attr('fill', function (d) { return colorScale(d.Continent); })
+          .on("mouseleave", mouseout)
+          .on("mouseout", mouseout)
+          .on("mouseover", mouseover)
+          .call(place);
+          years.exit()
         .transition()
         .duration(transitionDuration)
         .ease(easingFunc)
