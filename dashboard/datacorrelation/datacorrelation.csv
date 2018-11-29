@@ -1,4 +1,4 @@
-CountryID,Country,Continent,Year(date),Agriculture_value_added_GDP_percentage,Primary_School_age_Children_out_of_school,GPD_Per_Capita_Percentage,Human_Development_Index,Trade_GDP,NumberOfConflicts
+CountryID,Country,Continent,Year,Agriculture_value_added_GDP_percentage,Primary_School_age_Children_out_of_school,GPD_Per_Capita_Percentage,Human_Development_Index,Trade_GDP,NumberOfConflicts
 1,Afghanistan,1,2017,-1.081747036,-0.977905063,-0.248732113,-1.307591426,-1.169658543,5.46715244
 2,Afghanistan,1,2018,-1.081747036,-0.977905063,-0.248732113,-1.307591426,-1.169658543,4.120542971
 3,Algeria,3,1997,-0.55814033,-0.310239143,-0.319903149,1.206350402,-0.070236762,-0.140285722

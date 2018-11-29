@@ -13,13 +13,40 @@ var svg = d3.select("#chart").append("svg")
 
 // Read in and format the data
 d3.csv("datacorrelation.csv", clean, function(data) {
+  
   var drawn = false;
-  //console.log(data)
+
   var cols = getColumns(data);
-  //console.log(cols)
 
   var form = d3.select('#controls');
 
+  d3.select("#countries").selectAll("option")
+    .data(d3.map(data, function(d){return d.Country;}).keys())
+    .enter()
+    .append("option")
+    .text(function(d){return d;})
+    .attr("value",function(d){return d;});
+
+  d3.select("#years").selectAll("option")
+    .data(d3.map(data, function(d){return d.Year;}).keys())
+    .enter()
+    .append("option")
+    .text(function(d){return d;})
+    .attr("value",function(d){return d;});
+
+  document.addEventListener('DOMContentLoaded',function() {
+      document.querySelector('#countries').onchange=countryAndYearFilter;
+  },false);
+  
+  document.addEventListener('DOMContentLoaded',function() {
+    document.querySelector('#years').onchange=countryAndYearFilter;
+  },false);
+
+  function countryAndYearFilter(event) {
+      redraw();
+  }
+   
+    
   // Draw the interpolation functions
   var funcs = [
     {value: 'linear'},
@@ -95,15 +122,15 @@ d3.csv("datacorrelation.csv", clean, function(data) {
   header('Attribute to Display Mapping');
   var colsTable = table('', attrs);
   cols.forEach(function (col) {
-    if(col.name ==='Country'){
-      console.log(attrs)
-    }
-    console.log(attrs)
     row(colsTable, attrs, col.name, col);
   });
   colsTable.selectAll('a').on('click', selectAttribute);
+  
+  selectAttribute({row:findAttr('Trade GDP'),col:attrs[0]});
+  selectAttribute({row:findAttr('NumberOfConflicts'),col:attrs[1]});
+  selectAttribute({row:findAttr('NumberOfConflicts'),col:attrs[2]});
+
   function selectAttribute(d) {
-    console.log(d)
     attributes[d.col.value] = d.row;
     colsTable.selectAll('a.' + d.col.value)
       .classed('selected', function (other) {
@@ -111,9 +138,7 @@ d3.csv("datacorrelation.csv", clean, function(data) {
       });
     redraw();
   }
-  selectAttribute({row:findAttr('Trade GDP'),col:attrs[0]});
-  selectAttribute({row:findAttr('NumberOfConflicts'),col:attrs[1]});
-  selectAttribute({row:findAttr('NumberOfConflicts'),col:attrs[2]});
+  
   function findAttr(search) {
     var lower = search.toLowerCase();
     return cols.filter(function (attr) {
@@ -135,7 +160,6 @@ d3.csv("datacorrelation.csv", clean, function(data) {
 
     row.selectAll('td.option')
         .data(function (rowData) {
-          console.log("rowData: "+rowData)
           return data.map(function (colData) {
             return {
               row: name,
@@ -241,7 +265,32 @@ d3.csv("datacorrelation.csv", clean, function(data) {
           typeof d[attributes.x.key] === 'number' &&
           typeof d[attributes.y.key] === 'number';
       });
-      var countries = svg.selectAll('.country').data(filteredData, function (d) { return d.Country; });
+      var countries = svg.selectAll('.country').data(filteredData, function (d) {
+        
+        // Select Country from filter
+        var selCountry = document.getElementById('countries')
+        selCountry = selCountry.options[selCountry.selectedIndex].value
+        
+        // Select Year from filter
+        var selYear = document.getElementById('years')
+        selYear = selYear.options[selYear.selectedIndex].value
+
+        if((d.Country === selCountry) && (d.year === selYear)){
+          return selCountry;
+        }
+        if((d.Country === selCountry) && (d.year === selYear)){
+          return selCountry;
+        }
+        else if((d.Country === selCountry) && (selYear !== 'All Years')){
+          return;
+        }
+        else if((d.Country === selCountry) && (selYear === 'All Years')){
+          return selCountry;
+        }
+        else if(selCountry === 'All Countries' && selYear === 'All Years'){
+          return d.Country
+        }
+      });
       countries.transition().duration(transitionDuration)
         .ease(easingFunc)
         .call(place);
@@ -296,48 +345,31 @@ d3.csv("datacorrelation.csv", clean, function(data) {
   d3.select(self.frameElement).style("height", totalHeight + "px");
 });
 
-// Extract columns of interest from the dataset.  Columns of interest are the top N
-// with highest coverage.
+// Extract columns of interest from the dataset.
 function getColumns(data) {
   var items = {};
   data.forEach(function (d) {
-    //console.log(d3.keys(d));
     d3.keys(d).forEach(function (k) {
       if (d[k]) {
-        //console.log(items[k])
         items[k] = (items[k] || 0) + 1; }
     });
   });
-  //console.log(items)
   return d3.keys(items).map(function (col) {
-    // extract name and units from column name and normalize
-    //console.log("raw: "+col)
     var name = col
       .replace(/(_|\(.*?\))/g, " ")
       .replace(/\s+/g, " ")
       .replace(/(^\s*|\s*$)/g, "");
     var units = /\((.*?)\)/.exec(col)
-    //console.log(name, units)
     return {
       key: col,
       name: name,
       units: units && units[1]
     };
   }).filter(function (col) {
-    if(col.name === "CountryID"){
+    if(col.name === "CountryID" || col.name === "Continent" || col.name === "Country" || col.name === "year"){
       return false
     }
     else return true
-    
-    /*if(items[col.key] !== data.length && items[col.key] > 0.9 * data.length && col.name.length < 32){
-            console.log(items[col.key] !== data.length && items[col.key] > 0.9 * data.length && col.name.length < 32)
-            return true
-            /*return items[col.key] !== data.length &&
-            items[col.key] > 0.9 * data.length &&
-            col.name.length < 32;*/
-  
-
-    //only country, country ID and continent have full coverage - omit those*/
     
   });
 }
