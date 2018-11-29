@@ -20,12 +20,18 @@ d3.csv("datacorrelation.csv", clean, function(data) {
 
   var form = d3.select('#controls');
 
+  var uniqueCountries = d3.map(data, function(d){return d.Country;}).keys()
+  uniqueCountries.unshift('All Countries');
+
+
   d3.select("#countries").selectAll("option")
-    .data(d3.map(data, function(d){return d.Country;}).keys())
-    .enter()
+    .data(uniqueCountries).enter()
     .append("option")
-    .text(function(d){return d;})
-    .attr("value",function(d){return d;});
+    .attr("value",function(d){
+      return d;})
+    .text(function(d){
+      return d;
+    });
 
   d3.select("#years").selectAll("option")
     .data(d3.map(data, function(d){return d.Year;}).keys())
@@ -125,7 +131,7 @@ d3.csv("datacorrelation.csv", clean, function(data) {
     row(colsTable, attrs, col.name, col);
   });
   colsTable.selectAll('a').on('click', selectAttribute);
-  
+
   selectAttribute({row:findAttr('Trade GDP'),col:attrs[0]});
   selectAttribute({row:findAttr('NumberOfConflicts'),col:attrs[1]});
   selectAttribute({row:findAttr('NumberOfConflicts'),col:attrs[2]});
@@ -183,7 +189,7 @@ d3.csv("datacorrelation.csv", clean, function(data) {
         .on('click.preventDefault', function () { d3.event.preventDefault(); });
   }
 
-  //    Render the scatterplot
+  // Render the scatterplot
   drawn = true;
   var colorScale = d3.scale.category10();
 
@@ -209,6 +215,7 @@ d3.csv("datacorrelation.csv", clean, function(data) {
       .attr("transform", "translate(-25,0)")
     .append('text')
       .attr('transform', 'rotate(-90)')
+      .attr('dy', 10)
       .style('text-anchor', 'end')
       .attr('class', 'y label');
 
@@ -259,23 +266,32 @@ d3.csv("datacorrelation.csv", clean, function(data) {
       radius.domain(radiusRange);
       d3.select('.x.axis').transition().duration(transitionDuration).ease(easingFunc).call(xAxis);
       d3.select('.y.axis').transition().duration(transitionDuration).ease(easingFunc).call(yAxis);
+      
       var filteredData = data.filter(function (d) {
         return typeof d[attributes.radius.key] === 'number' &&
           d[attributes.radius.key] !== 0 &&
           typeof d[attributes.x.key] === 'number' &&
           typeof d[attributes.y.key] === 'number';
       });
+23
       var countries = svg.selectAll('.country').data(filteredData, function (d) {
         
         // Select Country from filter
         var selCountry = document.getElementById('countries')
         selCountry = selCountry.options[selCountry.selectedIndex].value
-        
         // Select Year from filter
         var selYear = document.getElementById('years')
         selYear = selYear.options[selYear.selectedIndex].value
 
-        if((d.Country === selCountry) && (d.year === selYear)){
+
+        if((selCountry === 'All Countries')){
+          return d.Country;
+        }
+        else if((selCountry === d.Country)){
+          return selCountry;
+        }
+
+        /*if((d.Country === selCountry) && (d.year === selYear)){
           return selCountry;
         }
         if((d.Country === selCountry) && (d.year === selYear)){
@@ -289,8 +305,9 @@ d3.csv("datacorrelation.csv", clean, function(data) {
         }
         else if(selCountry === 'All Countries' && selYear === 'All Years'){
           return d.Country
-        }
+        }*/
       });
+
       countries.transition().duration(transitionDuration)
         .ease(easingFunc)
         .call(place);
