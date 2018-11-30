@@ -21,38 +21,7 @@ d3.csv("datacorrelation.csv", clean, function(data) {
   var form = d3.select('#controls');
 
   var uniqueCountries = d3.map(data, function(d){return d.Country;}).keys()
-  uniqueCountries.unshift('All Countries');
-
-
-  d3.select("#countries").selectAll("option")
-    .data(uniqueCountries).enter()
-    .append("option")
-    .attr("value",function(d){
-      return d;})
-    .text(function(d){
-      return d;
-    });
-
-  d3.select("#years").selectAll("option")
-    .data(d3.map(data, function(d){return d.Year;}).keys())
-    .enter()
-    .append("option")
-    .text(function(d){return d;})
-    .attr("value",function(d){return d;});
-
-  document.addEventListener('DOMContentLoaded',function() {
-      document.querySelector('#countries').onchange=countryAndYearFilter;
-  },false);
-  
-  document.addEventListener('DOMContentLoaded',function() {
-    document.querySelector('#years').onchange=countryAndYearFilter;
-  },false);
-
-  function countryAndYearFilter(event) {
-      redraw();
-  }
-   
-    
+ 
   // Draw the interpolation functions
   var funcs = [
     {value: 'linear'},
@@ -273,60 +242,23 @@ d3.csv("datacorrelation.csv", clean, function(data) {
           typeof d[attributes.x.key] === 'number' &&
           typeof d[attributes.y.key] === 'number';
       });
-23
+
+
       var countries = svg.selectAll('.country').data(filteredData, function (d) {
-        return d.Country;
-        /*var selCountry = document.getElementById('countries')
-        selCountry = selCountry.options[selCountry.selectedIndex].value;
-        if((selCountry === 'All Countries')){
-          return d.Country;
-        }
-        else if((selCountry === d.Country)){
-          return selCountry;
-        }*/
+        return d.Country
       });
-
-        var years = svg.selectAll('.country').data(filteredData, function (d) {
-          return d.Year;
-          /*var selYear = document.getElementById('years')
-          selYear = selYear.options[selYear.selectedIndex].value
-          if((selYear === 'All Years')){
-            return d.Year;
-          }
-          else if((selYear === d.Year)){
-            return selYear;
-          }*/
-        });
-
+      //console.log(countries)
       countries.transition().duration(transitionDuration)
         .ease(easingFunc)
         .call(place);
-      countries.enter().append('circle')
+        countries.enter().append('circle')
           .attr('class', 'country')
           .attr('fill', function (d) { return colorScale(d.Continent); })
           .on("mouseleave", mouseout)
           .on("mouseout", mouseout)
           .on("mouseover", mouseover)
           .call(place);
-      countries.exit()
-        .transition()
-        .duration(transitionDuration)
-        .ease(easingFunc)
-        .remove();
-
-      
-      
-      years.transition().duration(transitionDuration)
-        .ease(easingFunc)
-        .call(place);
-        years.enter().append('circle')
-          .attr('class', 'country')
-          .attr('fill', function (d) { return colorScale(d.Continent); })
-          .on("mouseleave", mouseout)
-          .on("mouseout", mouseout)
-          .on("mouseover", mouseover)
-          .call(place);
-          years.exit()
+        countries.exit()
         .transition()
         .duration(transitionDuration)
         .ease(easingFunc)
@@ -391,7 +323,7 @@ function getColumns(data) {
       units: units && units[1]
     };
   }).filter(function (col) {
-    if(col.name === "CountryID" || col.name === "Continent" || col.name === "Country" || col.name === "year"){
+    if(col.name === "CountryID" || col.name === "Continent" || col.name === "Country" || col.name === "Year"){
       return false
     }
     else return true
