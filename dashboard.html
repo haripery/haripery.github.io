@@ -20,6 +20,9 @@
 	<link type="text/css" href="css/leaflet-legend.css" rel="stylesheet"/>
 		<title>UN Dashboard</title>
 		<style>
+		.table {
+		  font-size: 11px;
+		}
 		form {
 			padding-left: 1200px;
 		}
@@ -41,15 +44,15 @@
             </a>
           </li>
 					<li>
-            <a href= "dataupload.html">
+            <a href= "dataupload.html" data-toggle="tooltip" title="Upload your own data and visualize it">
               <i class="tim-icons icon-spaceship"></i>
-              <p>Data Upload</p>
+              <p>Dashboard 1.0</p>
             </a>
           </li>
           <li class="active ">
-            <a href= "dashboard.html">
+            <a href= "dashboard.html" data-toggle="tooltip" title="Collective visuals without data upload">
               <i class="tim-icons icon-chart-pie-36"></i>
-              <p>Collective Visuals</p>
+              <p>Dashboard 2.0</p>
             </a>
           </li>
           <li>
@@ -81,6 +84,12 @@
               <i class= "tim-icons icon-molecule-40"></i>
               <p>Team Members</p>
             </a>
+					</li>
+					<li>
+            <a href="demo.html">
+              <i class= "tim-icons icon-video-66"></i>
+              <p>Demo</p>
+            </a>
           </li>
         </ul>
       </div>
@@ -103,7 +112,7 @@
 					<div class='col-12'>
 						<div class="card card-chart">
 							<div class="card-header ">
-									
+
 									<h5>The dashboard in this website shows the frequency of Armed Conflict Events worldwide. The source of all data presented below is the Armed Conflict Location & Event Data Project (ACLED) obtained at <span> <a href="https://www.acleddata.com/data/">Acled Data</a></span> on November 8th, 2018</h5>
 							</div>
 					</div>
@@ -198,7 +207,32 @@
 </div>
 </div>
 </div>
-</div>
+<!-- data table -->
+<div class="row">
+      <div id="paging">
+        Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span> <span id="totalsize"></span>
+        <input id="last" class="btn" type="Button" value="Last" onclick="javascript:last()" />
+        <input id="next" class="btn" type="button" value="Next" onclick="javascript:next()"/>
+      </div>
+      <table id="test" class="table table-striped"></table>
+    </div>
+<!-- <div class='row'>
+	<div class='col-12'>
+      <table class='table table-striped table-bordered table-hover' id='dc-table-graph'>
+        <thead>
+          <tr class='header'>
+            <th>Event_date</th>
+            <th>Year</th>
+            <th>Event_type</th>
+            <th>Actor</th>
+            <th>Region</th>
+            <th>Country</th>
+            <th>Fatalities</th>
+          </tr>
+        </thead>
+      </table>
+	</div>
+  </div> -->
 </div>
 <script type="text/javascript" src="js/d3.js"></script>
 <script type="text/javascript" src="js/crossfilter.js"></script>
@@ -218,20 +252,26 @@
 <script type="text/javascript" src="js/leaflet.markercluster.js"></script>
 
 <script type="text/javascript" src="js/dc.leaflet.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 <script type="text/javascript">
 
+// d3.csv("All Countries.csv").then(function(data) {
+// 		drawMarkerSelect(data);
+// });
+var dataTable = dc.dataTable("#test");
+var xf;
 d3.csv("All Countries.csv").then(function(data) {
-		drawMarkerSelect(data);
-});
-
-function drawMarkerSelect(data) {
 		var dateFormat= d3.timeFormat('%m-%d-%Y');
 		var dateFormatParser= d3.timeParse(dateFormat);
 		data.forEach(function (d) {
 				d.date = dateFormatParser(d.Event_date);
 				d.year = d3.timeYear(d.date); // pre-calculate year for better performance
 		});
-		var xf = crossfilter(data);
+		xf = crossfilter(data);
 		var all = xf.groupAll();
 		// count all the facts
 		dc.dataCount(".dc-data-count")
@@ -321,8 +361,35 @@ function drawMarkerSelect(data) {
 // 	countryy.filterAll();
 // 	dc.redrawAll();
 // });
+// var timeDimension = facts.dimension(function (d) {
+//     return d.;
+//   });
 
-
+// Table of earthquake data
+  dataTable.width(960)
+    .dimension(yearly)
+	.group(function(d) { return "Armed Conflict data table"
+	 })
+	.size(Infinity)
+	.showGroups(false)
+	.columns(['Event_date', 'Year', 'Event_type', 'Actor', 'Region', 'Country', 'Fatalities'])
+	.order(d3.ascending)
+	.on('preRender', update_offset)
+  .on('preRedraw', update_offset)
+  .on('pretransition', display)
+    // .columns([
+    //   function(d) { return d.date; },
+    //   function(d) { return d.Year;},
+    //   function(d) { return d.Event_type; },
+    //   function(d) { return d.Actor; },
+    //   function(d) { return d.Region; },
+		// 	function(d) { return d.Country; },
+		// 	function(d) { return d.Fatalities; }
+	  // // function(d) { return '<a href=\"http://maps.google.com/maps?z=12&t=m&q=loc:' + d.lat + '+' + d.long +"\" target=\"_blank\">Google Map</a>"},
+	  // // function(d) { return '<a href=\"http://www.openstreetmap.org/?mlat=' + d.lat + '&mlon=' + d.long +'&zoom=12'+ "\" target=\"_blank\"> OSM Map</a>"}
+    // ])
+    .sortBy(function(d){ return d.date; });
+    // .order(d3.ascending);
 d3.selectAll('a#pchart').on('click', function(){
 pie.filterAll();
 dc.redrawAll();
@@ -345,9 +412,49 @@ dc.filterAll();
 dc.renderAll();
 });
 			dc.renderAll();
-			return {countryy:countryy, marker: marker, pie: pie, line: line, row: row};
+			return {countryy:countryy, marker: marker, pie: pie, line: line, row: row, dataTable: dataTable};
 
-}
+});
+
+// use odd page size to show the effect better
+			// var xf = crossfilter(data);
+			var ofs = 0, pag = 100;
+      function update_offset() {
+          var totFilteredRecs = xf.groupAll().value();
+          var end = ofs + pag > totFilteredRecs ? totFilteredRecs : ofs + pag;
+          ofs = ofs >= totFilteredRecs ? Math.floor((totFilteredRecs - 1) / pag) * pag : ofs;
+          ofs = ofs < 0 ? 0 : ofs;
+          dataTable.beginSlice(ofs);
+          dataTable.endSlice(ofs+pag);
+      }
+      function display() {
+          var totFilteredRecs = xf.groupAll().value();
+          var end = ofs + pag > totFilteredRecs ? totFilteredRecs : ofs + pag;
+          d3.select('#begin')
+              .text(end === 0? ofs : ofs + 1);
+          d3.select('#end')
+              .text(end);
+          d3.select('#last')
+              .attr('disabled', ofs-pag<0 ? 'true' : null);
+          d3.select('#next')
+              .attr('disabled', ofs+pag>=totFilteredRecs ? 'true' : null);
+          d3.select('#size').text(totFilteredRecs);
+          if(totFilteredRecs != xf.size()){
+            d3.select('#totalsize').text("(filtered Total: " + xf.size() + " )");
+          }else{
+            d3.select('#totalsize').text('');
+          }
+      }
+      function next() {
+          ofs += pag;
+          update_offset();
+          dataTable.redraw();
+      }
+      function last() {
+          ofs -= pag;
+          update_offset();
+          dataTable.redraw();
+      }
 
 </script>
 

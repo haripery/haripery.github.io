@@ -55,8 +55,40 @@
 	<script type="text/javascript" src="js/auto_chart.js"></script>
 	<script src="js/plugins/chartjs.min.js"></script>
 	<script src="js/black-dashboard.js?v=1.0.0" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
+	</script>
+	<script type="text/javascript">
+	window.smoothScroll = function(target) {
+	var scrollContainer = target;
+	do { //find scroll container
+			scrollContainer = scrollContainer.parentNode;
+			if (!scrollContainer) return;
+			scrollContainer.scrollTop += 1;
+	} while (scrollContainer.scrollTop == 0);
+
+	var targetY = 0;
+	do { //find the top of target relatively to the container
+			if (target == scrollContainer) break;
+			targetY += target.offsetTop;
+	} while (target = target.offsetParent);
+
+	scroll = function(c, a, b, i) {
+			i++; if (i > 30) return;
+			c.scrollTop = a + (b - a) / 30 * i;
+			setTimeout(function(){ scroll(c, a, b, i); }, 20);
+	}
+	// start scrolling
+	scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+}
+	</script>
 <title>UN Dashboard</title>
 <style>
+.table {
+	font-size: 11px;
+}
 .dc-chart text{
 	color: white;
 }
@@ -100,9 +132,13 @@
     align-content: center;
     align-items: center;
 	}
-	table{
+	/* div {
+    text-align: justify;
+    text-justify: inter-word;
+} */
+	/* table{
 		font-size: 14px;
-	}
+	} */
 </style>
 </head>
 <body ng-controller="AutomateChart" ng-init="initialize()">
@@ -125,15 +161,15 @@
             </a>
           </li>
 					<li class="active ">
-            <a href= "dataupload.html">
+            <a href= "dataupload.html" data-toggle="tooltip" title="Upload your own data and visualize it">
               <i class="tim-icons icon-spaceship"></i>
-              <p>Data Upload</p>
+              <p>Dashboard 1.0</p>
             </a>
           </li>
           <li>
-            <a href= "dashboard.html">
+            <a href= "dashboard.html" data-toggle="tooltip" title="Collective visuals without data upload">
               <i class="tim-icons icon-chart-pie-36"></i>
-              <p>Collective Visuals</p>
+              <p>Dashboard 2.0</p>
             </a>
           </li>
           <li>
@@ -165,6 +201,12 @@
               <i class= "tim-icons icon-molecule-40"></i>
               <p>Team Members</p>
             </a>
+		  </li>
+		  <li>
+            <a href="demo.html">
+              <i class= "tim-icons icon-video-66"></i>
+              <p>Demo</p>
+            </a>
           </li>
         </ul>
       </div>
@@ -192,12 +234,25 @@
 			<span class="navbar-toggler-bar navbar-kebab"></span>
 		</button>
 </div>
+</div>
 </nav>
       <!-- End Navbar -->
 	<div class= 'content'>
+		<div class='row'>
+				<div class='col-md-12'>
+					<div class="card card-chart">
+						<div class="card-header ">
+
+								<h4>How to use:</h4> <h5>In step 1, always upload CSV format file which has multiple columns (split a single column of text into multiple columns). In step 2, Select appropriate chart type for each data type, For example, Numeric data type will follow bar chart, Date data type will follow time chart, string data type will follow row chart or pie chart (if few categories). In step 3, review all the charts and analyze the data. In the last step 4, you can view and download the filtered and unfiltered data table.</h5>
+						</div>
+				</div>
+		</div>
+		</div>
+
+
 <div class="row">
 		<div class="col-md-12">
-				<h3>Step 1: Upload CSV file
+				<h3>Step 1: Upload(Only CSV file is accepted)
 					<br>
 				<label class="btn btn-success">
 				    <input class="btn btn-success" id= "csv" type="file"/>
@@ -271,10 +326,10 @@
 								</td>
 						</tr>
 				</table>
-				<button class="btn btn-success" ng-click="generateChartData()"><img src="Images/plane.png"/></button></h3>
+				<button class="btn btn-success" ng-click="generateChartData()" onclick="smoothScroll(document.getElementById('second'))"><img src="Images/plane.png"/></button></h3>
 		</div>
 </div>
-<div class="row">
+<div class="row" id= "second">
 		<div class="col-md-12">
 				<h3>Step 3: Analyze your data</h3>
 				<div class= "grid", id= "grid">
@@ -308,7 +363,7 @@
 				</div>
 				<br>
 				<div class="row">
-						<table class="table table-striped table-bordered table-hover" id="dcDataTable"></table>
+						<table class="table table-striped table-hover" id="dcDataTable"></table>
 				</div>
 		</div>
 </div>

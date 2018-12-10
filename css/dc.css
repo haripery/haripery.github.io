@@ -1,7 +1,6 @@
 .dc-chart path.dc-symbol, .dc-legend g.dc-legend-item.fadeout {
   fill-opacity: 0.5;
   stroke-opacity: 0.5; }
-
 div.dc-chart {
   float: left; }
 

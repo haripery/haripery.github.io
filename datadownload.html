@@ -42,15 +42,15 @@
             </a>
           </li>
 					<li>
-						<a href= "dataupload.html">
+						<a href= "dataupload.html" data-toggle="tooltip" title="Upload your own data and visualize it">
 							<i class="tim-icons icon-spaceship"></i>
-							<p>Data Upload</p>
+							<p>Dashboard 1.0</p>
 						</a>
 					</li>
 					<li>
-            <a href= "dashboard.html">
+            <a href= "dashboard.html" data-toggle="tooltip" title="Collective visuals without data upload">
               <i class="tim-icons icon-chart-pie-36"></i>
-              <p>Collective Visuals</p>
+              <p>Dashboard 2.0</p>
             </a>
           </li>
           <li>
@@ -81,6 +81,12 @@
             <a href="team.html">
               <i class= "tim-icons icon-molecule-40"></i>
               <p>Team Members</p>
+            </a>
+          </li>
+          <li>
+            <a href="demo.html">
+              <i class= "tim-icons icon-video-66"></i>
+              <p>Demo</p>
             </a>
           </li>
         </ul>
@@ -117,7 +123,7 @@
 											<div class="col-lg-12 text-left">
                         <h2 class="card-title">Armed Conflict Dataset</h2>
                         <h5>The dashboard in this website shows the frequency of Armed Conflict Events worldwide. The source of all data presented below is the Armed Conflict Location & Event Data Project (ACLED) obtained at <span> <a href="https://www.acleddata.com/data/">Acled Data</a></span> on November 8th, 2018</h5>
-		                
+
 		              </div>
 								</div>
 								</div>
@@ -151,6 +157,11 @@
 <script src="js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="js/black-dashboard.js?v=1.0.0" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 <script type="text/javascript">
 			d3.csv("All Countries.csv").then(function(data){
 				var dateFormatSpecifier = '%m-%d-%Y';

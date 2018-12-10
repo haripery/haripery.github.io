@@ -14,6 +14,9 @@
 	<link type="text/css" href="css/dc.css" rel="stylesheet"/>
 	<!-- <link type="text/css" href="css/leaflet-legend.css" rel="stylesheet"/> -->
 <style>
+.table {
+  font-size: 11px;
+}
 .form-control {
   display: block;
   width: 100%;
@@ -61,7 +64,7 @@
   opacity: 1;
 }
 
-	
+
 /* Tooltip CSS */
 .tooltip {
 		top: 100px;
@@ -141,6 +144,11 @@
 <!-- <script src="js/dc.js" type="text/javascript"></script> -->
 <!-- Colorbrewer -->
 <script src="https://bl.ocks.org/mbostock/raw/5577023/colorbrewer.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 </head>
 <body>
 	<!-- <div class="wrapper"> -->
@@ -162,15 +170,15 @@
             </a>
           </li>
 					<li>
-						<a href= "dataupload.html">
+						<a href= "dataupload.html" data-toggle="tooltip" title="Upload your own data and visualize it">
 							<i class="tim-icons icon-spaceship"></i>
-							<p>Data Upload</p>
+							<p>Dashboard 1.0</p>
 						</a>
 					</li>
 					<li>
-            <a href= "dashboard.html">
+            <a href= "dashboard.html" data-toggle="tooltip" title="Collective visuals without data upload">
               <i class="tim-icons icon-chart-pie-36"></i>
-              <p>Collective Visuals</p>
+              <p>Dashboard 2.0</p>
             </a>
           </li>
           <li class="active">
@@ -201,6 +209,12 @@
             <a href="team.html">
               <i class= "tim-icons icon-molecule-40"></i>
               <p>Team Members</p>
+            </a>
+		  </li>
+		  <li>
+            <a href="demo.html">
+              <i class= "tim-icons icon-video-66"></i>
+              <p>Demo</p>
             </a>
           </li>
         </ul>
@@ -280,7 +294,16 @@
 									<footnote></footnote>
 							</div>
 					</div>
-			</div>
+
+			<div class="row">
+			      <div id="paging">
+			        Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span> <span id="totalsize"></span>
+			        <input id="last" class="btn" type="Button" value="Last" onclick="javascript:last()" />
+			        <input id="next" class="btn" type="button" value="Next" onclick="javascript:next()"/>
+			      </div>
+			      <table id="test" class="table"></table>
+			    </div>
+</div>
 		</div>
 
 
@@ -383,6 +406,8 @@
 		let nodesGroup = svg.append("g");
 
 		// load the data
+		var dataTable = dc.dataTable("#test");
+		var xf;
 		d3.csv("All Countries.csv", function(error, data) {
 
 				if (error) throw error;
@@ -394,17 +419,17 @@
 				});
 
 				// set crossfilter
-				let ndx = crossfilter(results);
+				xf = crossfilter(results);
 
 				// define dimensions
 				let
-						eventtypeDim = ndx.dimension(function(d) {
+						eventtypeDim = xf.dimension(function(d) {
 								return d.Event_type;
 						}),
-						yearDim = ndx.dimension(function(d) {
+						yearDim = xf.dimension(function(d) {
 								return d.Year;
 						}),
-						sankeyDim = ndx.dimension(function(d) {
+						sankeyDim = xf.dimension(function(d) {
 								return d.Event_type;
 						});
 
@@ -502,12 +527,76 @@
 
 				// set sankey graph data
 				let graph = transformToGraph(sankeyDim.top(Infinity));
+				dataTable.width(960)
+					.dimension(yearDim)
+				.group(function(d) { return "Armed Conflict data table"
+				 })
+				.size(Infinity)
+				.showGroups(false)
+				.columns(['Event_date', 'Year', 'Event_type', 'Actor', 'Region', 'Country', 'Fatalities'])
+				.order(d3.ascending)
+				.on('preRender', update_offset)
+				.on('preRedraw', update_offset)
+				.on('pretransition', display)
+					// .columns([
+					//   function(d) { return d.date; },
+					//   function(d) { return d.Year;},
+					//   function(d) { return d.Event_type; },
+					//   function(d) { return d.Actor; },
+					//   function(d) { return d.Region; },
+					// 	function(d) { return d.Country; },
+					// 	function(d) { return d.Fatalities; }
+					// // function(d) { return '<a href=\"http://maps.google.com/maps?z=12&t=m&q=loc:' + d.lat + '+' + d.long +"\" target=\"_blank\">Google Map</a>"},
+					// // function(d) { return '<a href=\"http://www.openstreetmap.org/?mlat=' + d.lat + '&mlon=' + d.long +'&zoom=12'+ "\" target=\"_blank\"> OSM Map</a>"}
+					// ])
+					.sortBy(function(d){ return d.date; });
 
 				dc.renderAll();
 				renderSankey(graph);
 				bindHover();
 				renderLabels();
 		});
+
+		// use odd page size to show the effect better
+					// var xf = crossfilter(data);
+					var ofs = 0, pag = 100;
+		      function update_offset() {
+		          var totFilteredRecs = xf.groupAll().value();
+		          var end = ofs + pag > totFilteredRecs ? totFilteredRecs : ofs + pag;
+		          ofs = ofs >= totFilteredRecs ? Math.floor((totFilteredRecs - 1) / pag) * pag : ofs;
+		          ofs = ofs < 0 ? 0 : ofs;
+		          dataTable.beginSlice(ofs);
+		          dataTable.endSlice(ofs+pag);
+		      }
+		      function display() {
+		          var totFilteredRecs = xf.groupAll().value();
+		          var end = ofs + pag > totFilteredRecs ? totFilteredRecs : ofs + pag;
+		          d3.select('#begin')
+		              .text(end === 0? ofs : ofs + 1);
+		          d3.select('#end')
+		              .text(end);
+		          d3.select('#last')
+		              .attr('disabled', ofs-pag<0 ? 'true' : null);
+		          d3.select('#next')
+		              .attr('disabled', ofs+pag>=totFilteredRecs ? 'true' : null);
+		          d3.select('#size').text(totFilteredRecs);
+		          if(totFilteredRecs != xf.size()){
+		            d3.select('#totalsize').text("(filtered Total: " + xf.size() + " )");
+		          }else{
+		            d3.select('#totalsize').text('');
+		          }
+		      }
+		      function next() {
+		          ofs += pag;
+		          update_offset();
+		          dataTable.redraw();
+		      }
+		      function last() {
+		          ofs -= pag;
+		          update_offset();
+		          dataTable.redraw();
+		      }
+
 
 		// transform JSON data array into sankey graph object with nodes and links arrays
 		// inspired by DensityDesign Lab raw.js functions by Giorgio Caviglia, Michele Mauri, Giorgio Uboldi, Matteo Azzi

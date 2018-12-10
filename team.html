@@ -40,6 +40,11 @@
 	<script type="text/javascript" src="js/autodc_controller.js"></script>
 	<script src="js/plugins/chartjs.min.js"></script>
 	<script src="js/black-dashboard.js?v=1.0.0" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
+	</script>
 <title>UN Dashboard</title>
 <style>
 .filter-count{
@@ -110,15 +115,15 @@ img {
             </a>
           </li>
 					<li>
-            <a href= "dataupload.html">
+            <a href= "dataupload.html" data-toggle="tooltip" title="Upload your own data and visualize it">
               <i class="tim-icons icon-spaceship"></i>
-              <p>Data Upload</p>
+              <p>Dashboard 1.0</p>
             </a>
           </li>
           <li>
-            <a href= "dashboard.html">
+            <a href= "dashboard.html" data-toggle="tooltip" title="Collective visuals without data upload">
               <i class="tim-icons icon-chart-pie-36"></i>
-              <p>Collective Visuals</p>
+              <p>Dashboard 2.0</p>
             </a>
           </li>
           <li>
@@ -145,10 +150,16 @@ img {
               <p>Data Download</p>
             </a>
           </li>
-					<li>
+					<li class="active">
             <a href="team.html">
               <i class= "tim-icons icon-molecule-40"></i>
               <p>Team Members</p>
+            </a>
+					</li>
+					<li>
+            <a href="demo.html">
+              <i class= "tim-icons icon-video-66"></i>
+              <p>Demo</p>
             </a>
           </li>
         </ul>
