@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Hariprasath Periyasamy — Principal Engineer. Interactive résumé.">
+<title>Hariprasath Periyasamy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  /* Layout: irah.dev's technical-minimalist system. A fixed numbered nav, a sticky identity column on the left,
+     numbered sections on the right. Impact comes first, and every number links to the work behind it. */
+  :root {
+    --paper: #F7F7F5;
+    --card: #FFFFFF;
+    --forest: #1A3C2B;
+    --coral: #FF8C69;
+    --mint: #9EFFBF;
+    --gold: #F4D35E;
+    --ink: #3A3A38;
+    --ink-75: rgba(58, 58, 56, 0.75);
+    --ink-65: rgba(58, 58, 56, 0.65);
+    --ink-60: rgba(58, 58, 56, 0.6);
+    --ink-55: rgba(58, 58, 56, 0.55);
+    --ink-40: rgba(58, 58, 56, 0.4);
+    --line: rgba(58, 58, 56, 0.15);
+    --line-soft: rgba(58, 58, 56, 0.1);
+    --forest-04: rgba(26, 60, 43, 0.04);
+    --forest-07: rgba(26, 60, 43, 0.07);
+    --forest-20: rgba(26, 60, 43, 0.2);
+    --forest-25: rgba(26, 60, 43, 0.25);
+    --hit-bg: rgba(244, 211, 94, 0.38);
+    --hit-edge: #D2AC2F;
+    --selection: rgba(158, 255, 191, 0.35);
+    --nav-bg: rgba(247, 247, 245, 0.9);
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --nav-h: 57px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0F1012;
+      --card: #1A1A1E;
+      --forest: #E8F5ED;
+      --coral: #FFB399;
+      --ink: #E8E8E6;
+      --ink-75: rgba(232, 232, 230, 0.75);
+      --ink-65: rgba(232, 232, 230, 0.65);
+      --ink-60: rgba(232, 232, 230, 0.6);
+      --ink-55: rgba(232, 232, 230, 0.55);
+      --ink-40: rgba(232, 232, 230, 0.4);
+      --line: rgba(232, 232, 230, 0.18);
+      --line-soft: rgba(232, 232, 230, 0.1);
+      --forest-04: rgba(232, 245, 237, 0.04);
+      --forest-07: rgba(232, 245, 237, 0.07);
+      --forest-20: rgba(232, 245, 237, 0.2);
+      --forest-25: rgba(232, 245, 237, 0.25);
+      --hit-bg: rgba(244, 211, 94, 0.2);
+      --hit-edge: #F4D35E;
+      --nav-bg: rgba(15, 16, 18, 0.9);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0F1012;
+    --card: #1A1A1E;
+    --forest: #E8F5ED;
+    --coral: #FFB399;
+    --ink: #E8E8E6;
+    --ink-75: rgba(232, 232, 230, 0.75);
+    --ink-65: rgba(232, 232, 230, 0.65);
+    --ink-60: rgba(232, 232, 230, 0.6);
+    --ink-55: rgba(232, 232, 230, 0.55);
+    --ink-40: rgba(232, 232, 230, 0.4);
+    --line: rgba(232, 232, 230, 0.18);
+    --line-soft: rgba(232, 232, 230, 0.1);
+    --forest-04: rgba(232, 245, 237, 0.04);
+    --forest-07: rgba(232, 245, 237, 0.07);
+    --forest-20: rgba(232, 245, 237, 0.2);
+    --forest-25: rgba(232, 245, 237, 0.25);
+    --hit-bg: rgba(244, 211, 94, 0.2);
+    --hit-edge: #F4D35E;
+    --nav-bg: rgba(15, 16, 18, 0.9);
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--forest);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection { background: var(--selection); color: var(--forest); }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--ink-40); }
+  svg { display: block; }
+
+  .micro {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.6;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .num { color: var(--coral); }
+
+  /* ── Top nav ── */
+  .topnav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: var(--nav-bg);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topnav .in {
+    max-width: 1280px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .logo {
+    display: flex; align-items: center; justify-content: center; flex: none;
+    width: 32px; height: 32px;
+    background: var(--forest); color: var(--paper); border: 1px solid var(--forest);
+    font: 700 12px/1 var(--font-mono); letter-spacing: 0.1em; text-decoration: none;
+  }
+  .navlinks { display: none; list-style: none; margin: 0; padding: 0; gap: 28px; }
+  .navlinks a {
+    display: flex; align-items: center; gap: 6px;
+    font: 400 12px/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-55); text-decoration: none; transition: color 0.2s ease;
+  }
+  .navlinks a:hover { color: var(--forest); }
+  .navright { display: flex; align-items: center; gap: 12px; }
+  .btn-line {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 12px; border: 1px solid var(--forest); border-radius: 2px;
+    background: transparent; color: var(--forest);
+    font: 500 12px/1.2 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-line:hover { background: var(--forest); color: var(--paper); }
+  .btn-line[disabled] { cursor: progress; opacity: 0.7; }
+  .btn-icon {
+    display: flex; align-items: center; justify-content: center; flex: none;
+    width: 32px; height: 32px; padding: 0;
+    border: 1px solid var(--forest-20); border-radius: 2px;
+    background: transparent; color: var(--forest); cursor: pointer;
+  }
+  .btn-icon:hover { background: var(--forest-07); }
+  .btn-icon svg { width: 14px; height: 14px; }
+
+  /* ── Page frame ── */
+  .page { max-width: 1280px; margin: 0 auto; padding-inline: 24px; padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); }
+  .side { padding-block: 48px 8px; }
+  .main { padding-block: 32px 0; min-width: 0; }
+
+  /* ── Identity column ── */
+  .name {
+    margin: 0; font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(2.25rem, 1.8rem + 2vw, 3rem); line-height: 1.05; letter-spacing: -0.025em;
+    color: var(--forest); text-wrap: balance;
+  }
+  .role { margin: 8px 0 0; font-size: 16px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink-75); }
+  .tagline { margin: 16px 0 0; max-width: 22rem; font-size: 14px; line-height: 1.625; color: var(--ink-60); }
+  .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 24px; padding: 6px 12px; border: 1px solid var(--line);
+    color: var(--ink-60);
+  }
+  .status .dot { width: 8px; height: 8px; flex: none; background: var(--mint); }
+  .contact { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 20px; }
+  .email {
+    display: inline-flex; align-items: stretch; max-width: 100%;
+    border: 1px solid var(--line); border-radius: 2px;
+  }
+  .email .addr {
+    display: inline-flex; align-items: center; min-width: 0; padding: 6px 10px;
+    font: 400 12px/1.4 var(--font-mono); color: var(--ink-75); text-decoration: none; overflow-wrap: anywhere;
+  }
+  .email button {
+    padding: 0 10px; border: 0; border-left: 1px solid var(--line); background: transparent; cursor: pointer;
+    font: 500 10px/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--forest);
+  }
+  .email button:hover { background: var(--forest-07); }
+
+  .scrollnav { display: none; margin-top: 40px; }
+  .scrollnav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .scrollnav a {
+    display: flex; align-items: center; gap: 12px; padding-block: 6px;
+    color: var(--ink-55); text-decoration: none; transition: color 0.2s ease;
+  }
+  .scrollnav a .num { opacity: 0.5; transition: opacity 0.2s ease; }
+  .scrollnav a:hover { color: var(--forest); }
+  .scrollnav a:hover .num, .scrollnav a.active .num { opacity: 1; }
+  .scrollnav a.active { color: var(--forest); }
+  .scrollnav a::after { content: ""; height: 1px; flex: 0 0 0; background: var(--forest); opacity: 0.3; transition: flex-basis 0.3s ease; }
+  .scrollnav a.active::after { flex-basis: 64px; }
+
+  .socials { list-style: none; display: flex; align-items: center; gap: 20px; margin: 28px 0 0; padding: 0; }
+  .socials a { display: block; color: var(--ink-55); transition: color 0.2s ease; }
+  .socials a:hover { color: var(--forest); }
+  .socials svg { width: 20px; height: 20px; }
+
+  /* ── Section label with L-corner marker ── */
+  .sec { margin-bottom: 80px; scroll-margin-top: calc(var(--nav-h) + 24px); }
+  .sec:focus { outline: none; }
+  .label-row { display: flex; align-items: center; gap: 12px; }
+  .corner { position: relative; width: 20px; height: 20px; flex: none; }
+  .corner::before, .corner::after { content: ""; position: absolute; left: 0; top: 0; background: var(--forest); }
+  .corner::before { width: 1px; height: 100%; }
+  .corner::after { width: 100%; height: 1px; }
+  .label-row .num { font-family: var(--font-mono); font-size: 10px; }
+  .label-row h2 {
+    margin: 0; font-family: var(--font-display); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--forest);
+  }
+  .label-row .rule { flex: 1; border-top: 1px solid var(--line); }
+
+  .prose { margin-top: 24px; display: grid; gap: 16px; font-size: 14px; line-height: 1.625; color: var(--ink-75); max-width: 40rem; }
+  .prose p { margin: 0; }
+  .prose strong { font-weight: 600; color: var(--forest); }
+  .textlink {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+    padding: 0 0 2px; border: 0; border-bottom: 1px solid var(--forest); background: transparent; cursor: pointer;
+    font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--forest); text-decoration: none; transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .textlink svg { width: 12px; height: 12px; transition: transform 0.2s ease; }
+  .textlink:hover { color: var(--coral); border-color: var(--coral); }
+  .textlink:hover svg { transform: translateX(4px); }
+
+  /* ── Highlight filter (pinned while reading impact and experience) ── */
+  .explore { display: grid; }
+  .filters {
+    position: sticky; top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); z-index: 20;
+    display: grid; gap: 6px; margin-top: 16px; padding-block: 10px;
+    background: var(--paper); border-bottom: 1px solid transparent;
+  }
+  .filters.stuck { border-bottom-color: var(--line); }
+  .chips-row { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .chips-row > .micro { color: var(--ink-55); flex: none; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; padding: 2px; margin: -2px; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: none; display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 9px; border: 1px solid var(--forest-25); border-radius: 2px;
+    background: var(--forest-07); color: var(--forest); cursor: pointer;
+    font: 500 10px/16px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .chip:hover { background: var(--forest-20); }
+  .chip .n { color: var(--coral); }
+  .chip[aria-pressed="true"] { background: var(--forest); border-color: var(--forest); color: var(--paper); }
+  .chip[aria-pressed="true"] .n { color: inherit; opacity: 0.7; }
+  .query { margin: 0; font: 400 11px/1.5 var(--font-mono); color: var(--ink-55); }
+  .query b { font-weight: 600; color: var(--forest); }
+  .hits, .match {
+    font: 600 10px/16px var(--font-mono); letter-spacing: 0.04em; padding: 0 6px; border-radius: 2px;
+    background: var(--hit-bg); border: 1px solid var(--hit-edge); color: var(--forest); text-transform: none;
+  }
+
+  /* ── Impact ── */
+  .impact { list-style: none; margin: 4px 0 0; padding: 0; }
+  .irow { padding-block: 18px; border-top: 1px solid var(--line-soft); }
+  .irow:first-child { border-top: 0; padding-top: 10px; }
+  .who {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--ink-55); text-decoration: none; transition: color 0.2s ease, opacity 0.3s ease;
+  }
+  .who:hover { color: var(--forest); }
+  .who .co { color: var(--forest); font-weight: 600; }
+  .irow.dim .who { opacity: 0.45; }
+  .outcomes { list-style: none; margin: 8px -8px 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.75rem, 1fr)); gap: 4px; }
+  .outcomes li { display: grid; min-width: 0; }
+  .outcome {
+    display: grid; align-content: start; gap: 4px; padding: 8px; border-radius: 2px;
+    color: inherit; text-decoration: none;
+    transition: background-color 0.2s ease, opacity 0.3s ease, box-shadow 0.2s ease;
+    animation: rise 0.6s ease-out backwards;
+    animation-delay: calc(0.1s + var(--i) * 0.05s);
+  }
+  .outcome:hover { background: var(--forest-04); }
+  .outcome .v {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.25rem, 1rem + 0.5vw, 1.5rem); line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--forest); transition: color 0.2s ease;
+  }
+  .outcome .v.nw { white-space: nowrap; }
+  .outcome:hover .v { color: var(--coral); }
+  .outcome .c { font-size: 12px; line-height: 1.45; color: var(--ink-60); }
+  .outcome .c::after { content: " \2193"; color: var(--coral); opacity: 0; transition: opacity 0.2s ease; }
+  .outcome:hover .c::after, .outcome:focus-visible .c::after { opacity: 1; }
+  .outcome.hit { background: var(--hit-bg); box-shadow: inset 0 0 0 1px var(--hit-edge); }
+  .outcome.miss { opacity: 0.35; }
+  @keyframes rise { from { opacity: 0.35; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  /* ── Experience (mirrors the irah.dev experience card) ── */
+  .exp { list-style: none; margin: 8px 0 0; padding: 0; }
+  .exp > li + li { border-top: 1px solid var(--line-soft); }
+  .job {
+    display: grid; gap: 8px 16px; margin-inline: -16px; padding: 16px;
+    scroll-margin-top: calc(var(--nav-h) + 96px); transition: background-color 0.2s ease;
+  }
+  .job:hover { background: var(--forest-04); }
+  .job:focus { outline: none; }
+  .job.flash { animation: flash 1.4s ease-out; }
+  @keyframes flash { from { background: var(--hit-bg); } to { background: transparent; } }
+  .period { margin: 4px 0 0; color: var(--ink-55); }
+  .job h3 { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 16px; font-weight: 600; line-height: 1.375; color: var(--forest); }
+  .job h3 .co { font-weight: 400; color: var(--ink-60); }
+  .group { margin: 12px 0 0; color: var(--ink-55); }
+  .hl { margin: 8px 0 0; padding-left: 16px; display: grid; gap: 6px; font-size: 14px; line-height: 1.625; color: var(--ink-65); }
+  .hl li { transition: opacity 0.3s ease; border-radius: 2px; }
+  .hl li::marker { color: var(--ink-40); }
+  .hl li:focus { outline: none; }
+  .hl li.flash { animation: flash 1.6s ease-out; }
+  .hl strong { font-weight: 600; color: var(--forest); }
+  .hl a { color: var(--forest); text-underline-offset: 2px; }
+  .hl a:hover { color: var(--coral); }
+  .hl .t {
+    margin: 0 -2px; padding: 1px 2px; border-radius: 2px;
+    background-image: linear-gradient(var(--hit-bg), var(--hit-bg));
+    background-repeat: no-repeat; background-size: 0% 100%;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    transition: background-size 0.5s cubic-bezier(0.3, 0.7, 0.2, 1);
+  }
+  .hl li.hit .t { background-size: 100% 100%; }
+  .hl li.hit::marker { color: var(--hit-edge); }
+  .hl li.miss { opacity: 0.4; }
+  .more { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; }
+  .pill {
+    display: inline-flex; align-items: center; padding: 2px 8px;
+    border: 1px solid var(--forest-25); border-radius: 2px; background: var(--forest-07); color: var(--forest);
+    font: 500 10px/16px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ── Case study ── */
+  .case-title { margin: 24px 0 0; font-family: var(--font-display); font-size: 22px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; color: var(--forest); }
+  .case-meta { margin: 8px 0 0; color: var(--ink-55); }
+  .flow { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .flow li { display: grid; align-content: start; gap: 6px; padding: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 2px; }
+  .flow h3 { margin: 0; font-size: 14px; font-weight: 600; color: var(--forest); }
+  .flow p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink-65); }
+  .specs { list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 16px 36px; }
+  .specs li { display: grid; gap: 2px; }
+  .specs b { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -0.015em; color: var(--forest); }
+  .specs span { color: var(--ink-55); }
+
+  /* ── Skills ── */
+  .skills { margin-top: 24px; display: grid; gap: 20px; }
+  .skills dt { color: var(--ink-55); margin-bottom: 8px; }
+  .skills dd { margin: 0; }
+  .skills .tags { margin: 0; gap: 6px; }
+
+  /* ── Education & community ── */
+  .entries { list-style: none; margin: 16px 0 0; padding: 0; }
+  .entries li { padding-block: 18px; border-top: 1px solid var(--line-soft); }
+  .entries li:first-child { border-top: 0; }
+  .entries .micro { color: var(--ink-55); margin: 0 0 6px; }
+  .entries h3 { margin: 0; font-size: 16px; font-weight: 600; color: var(--forest); }
+  .entries p.sub { margin: 4px 0 0; font-size: 14px; color: var(--ink-60); }
+
+  .foot { padding-block: 24px 64px; border-top: 1px solid var(--line); color: var(--ink-40); }
+  .foot p { margin: 0; }
+  .foot p + p { margin-top: 12px; }
+  .flip { display: inline-block; color: var(--coral); opacity: 0.6; text-decoration: none; transition: transform 0.5s ease, opacity 0.2s ease; }
+  .flip:hover, .flip:focus-visible { opacity: 1; transform: rotateY(360deg); }
+
+  @media (min-width: 640px) {
+    .job { grid-template-columns: minmax(0, 2fr) minmax(0, 6fr); }
+  }
+  @media (min-width: 768px) {
+    .topnav .in, .page { padding-inline: 48px; }
+  }
+  @media (min-width: 1024px) {
+    .topnav .in, .page { padding-inline: 96px; }
+    .cols { display: flex; justify-content: space-between; gap: 32px; }
+    .side {
+      position: sticky; top: 0; width: 42%; max-height: 100vh;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding-block: 96px;
+    }
+    .main { width: 58%; padding-block: 96px 0; }
+    .scrollnav { display: block; }
+    .socials { margin-top: 0; }
+  }
+  @media (min-width: 1180px) {
+    .navlinks { display: flex; }
+  }
+  @media (max-width: 680px) {
+    .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); padding-right: 28px; }
+    .outcomes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 460px) {
+    .flow { grid-template-columns: 1fr; }
+    .btn-line .long { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<nav class="topnav" aria-label="Primary">
+  <div class="in">
+    <a class="logo" href="#about" aria-label="Back to top">H</a>
+    <ul class="navlinks">
+      <li><a href="#about"><span class="num">01.</span>About</a></li>
+      <li><a href="#impact"><span class="num">02.</span>Impact</a></li>
+      <li><a href="#experience"><span class="num">03.</span>Experience</a></li>
+      <li><a href="#case-study"><span class="num">04.</span>Case study</a></li>
+    </ul>
+    <div class="navright">
+      <button class="btn-line" type="button" id="download-nav" data-download hidden>Résumé <span class="long">PDF</span></button>
+      <button class="btn-icon" type="button" id="theme-toggle" aria-label="Switch to dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="cols">
+
+    <header class="side">
+      <div>
+        <h1 class="name">Hariprasath Periyasamy</h1>
+        <p class="role">Principal Engineer · Autodesk</p>
+        <p class="tagline">Lead frontend engineer for Autodesk’s AI-driven billing website, building governed, human-in-the-loop AI for engineering teams.</p>
+        <div class="status"><span class="dot" aria-hidden="true"></span><span class="micro">Open to interesting conversations</span></div>
+        <div class="contact">
+          <span class="email"><a class="addr" href="mailto:hariprasath.periyasamy@gmail.com">hariprasath.periyasamy@gmail.com</a><button type="button" id="copy-email" data-copy="hariprasath.periyasamy@gmail.com">Copy</button></span>
+        </div>
+        <nav class="scrollnav" aria-label="On this page">
+          <ul>
+            <li><a class="micro" href="#about" data-section="about"><span class="num">01.</span>About</a></li>
+            <li><a class="micro" href="#impact" data-section="impact"><span class="num">02.</span>Impact</a></li>
+            <li><a class="micro" href="#experience" data-section="experience"><span class="num">03.</span>Experience</a></li>
+            <li><a class="micro" href="#case-study" data-section="case-study"><span class="num">04.</span>Case study</a></li>
+            <li><a class="micro" href="#skills" data-section="skills"><span class="num">05.</span>Skills</a></li>
+            <li><a class="micro" href="#education" data-section="education"><span class="num">06.</span>Education</a></li>
+          </ul>
+        </nav>
+      </div>
+      <ul class="socials" aria-label="Links">
+        <li><a href="https://www.linkedin.com/in/hariperiyasamy/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+        <li><a href="https://nearthesingularity.com/blog" target="_blank" rel="noopener" aria-label="Writing at nearthesingularity.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg></a></li>
+        <li><a href="https://www.irah.dev/" target="_blank" rel="noopener" aria-label="irah.dev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></a></li>
+      </ul>
+    </header>
+
+    <main class="main">
+
+      <section class="sec" id="about" tabindex="-1" aria-labelledby="about-title">
+        <div class="label-row"><span class="corner" aria-hidden="true"></span><span class="num">01.</span><h2 id="about-title">About</h2><span class="rule"></span></div>
+        <div class="prose">
+          <p><strong>Principal Engineer</strong> with 10+ years of experience building high-performance, customer-centric web applications across enterprise SaaS, cloud observability, ad tech, and banking. Deep full-stack expertise in <strong>React, TypeScript, Node.js, GraphQL, and AWS</strong>, now focused on <strong>applied AI</strong>: governed, human-in-the-loop agents, MCP-based tooling, and AI-native engineering workflows.</p>
+          <p>Proven track record of leading cross-functional delivery, raising engineering standards across teams, and mentoring engineers. Currently the lead frontend engineer for Autodesk’s personalized, AI-driven billing website, used by <strong>thousands of customers daily</strong>.</p>
+        </div>
+        <button class="textlink" type="button" id="download-about" data-download hidden>Download full résumé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </section>
+
+      <div class="explore">
+        <section class="sec" id="impact" tabindex="-1" aria-labelledby="impact-title" style="margin-bottom: 0">
+          <div class="label-row"><span class="corner" aria-hidden="true"></span><span class="num">02.</span><h2 id="impact-title">Impact</h2><span class="rule"></span></div>
+          <p class="prose" style="margin-top: 16px">Key outcomes, newest role first. Select a number to see the work behind it.</p>
+        </section>
+
+        <div class="filters-sentinel" aria-hidden="true"></div>
+        <div class="filters">
+          <div class="chips-row">
+            <span class="micro" id="filter-label">Highlight</span>
+            <div class="chips" role="group" aria-labelledby="filter-label">
+              <button type="button" class="chip" id="f-all" data-filter="all" aria-pressed="true">All <span class="n">28</span></button>
+              <button type="button" class="chip" id="f-ai" data-filter="ai" aria-pressed="false">Applied AI <span class="n">5</span></button>
+              <button type="button" class="chip" id="f-fe" data-filter="fe" aria-pressed="false">Frontend &amp; design systems <span class="n">15</span></button>
+              <button type="button" class="chip" id="f-perf" data-filter="perf" aria-pressed="false">Performance <span class="n">8</span></button>
+              <button type="button" class="chip" id="f-rel" data-filter="rel" aria-pressed="false">Reliability &amp; observability <span class="n">7</span></button>
+              <button type="button" class="chip" id="f-lead" data-filter="lead" aria-pressed="false">Leadership <span class="n">6</span></button>
+            </div>
+          </div>
+          <p class="query" aria-live="polite"><b>28</b> highlights across <b>6</b> roles</p>
+        </div>
+
+        <ol class="impact">
+          <li class="irow" data-role="autodesk">
+            <a class="who micro" href="#role-autodesk"><span class="co">Autodesk</span> Principal Engineer <span class="hits" hidden></span></a>
+            <ul class="outcomes">
+              <li><a class="outcome" href="#ev-autodesk-site" data-tags="fe lead ai" style="--i: 0"><span class="v">Thousands</span><span class="c">of customers use the AI-driven billing website daily</span></a></li>
+              <li><a class="outcome" href="#ev-autodesk-assistant" data-tags="ai rel" style="--i: 1"><span class="v nw">1,200+</span><span class="c">automated tests behind the AI on-call triage assistant</span></a></li>
+              <li><a class="outcome" href="#ev-autodesk-approval" data-tags="ai lead" style="--i: 2"><span class="v">Enterprise</span><span class="c">approval path for AI services, documented so other teams can repeat it</span></a></li>
+              <li><a class="outcome" href="#ev-autodesk-forum" data-tags="ai lead" style="--i: 3"><span class="v nw">3 teams</span><span class="c">in the AI adoption forum, from demos to an owned backlog</span></a></li>
+            </ul>
+          </li>
+          <li class="irow" data-role="shopify">
+            <a class="who micro" href="#role-shopify"><span class="co">Shopify</span> Lead Full-Stack Engineer <span class="hits" hidden></span></a>
+            <ul class="outcomes">
+              <li><a class="outcome" href="#ev-shopify-dco" data-tags="perf fe" style="--i: 4"><span class="v nw">≤150ms</span><span class="c">response time serving ad creatives in the DCO system</span></a></li>
+              <li><a class="outcome" href="#ev-shopify-ads" data-tags="lead" style="--i: 5"><span class="v nw">Ads 3P</span><span class="c">team led across real-time bidding, merchant dashboards, and email/SMS</span></a></li>
+            </ul>
+          </li>
+          <li class="irow" data-role="aws">
+            <a class="who micro" href="#role-aws"><span class="co">Amazon Web Services</span> Senior Engineer <span class="hits" hidden></span></a>
+            <ul class="outcomes">
+              <li><a class="outcome" href="#ev-aws-caching" data-tags="perf" style="--i: 6"><span class="v nw">60%</span><span class="c">fewer backend API calls via GraphQL batching and caching</span></a></li>
+              <li><a class="outcome" href="#ev-aws-caching" data-tags="perf" style="--i: 7"><span class="v">850→<wbr>320ms</span><span class="c">average response time under peak traffic</span></a></li>
+              <li><a class="outcome" href="#ev-aws-livetail" data-tags="perf fe rel" style="--i: 8"><span class="v nw">10,000+/s</span><span class="c">log events streamed live in CloudWatch LiveTail</span></a></li>
+            </ul>
+          </li>
+          <li class="irow" data-role="sumo">
+            <a class="who micro" href="#role-sumo"><span class="co">Sumo Logic</span> Senior Frontend Engineer <span class="hits" hidden></span></a>
+            <ul class="outcomes">
+              <li><a class="outcome" href="#ev-sumo-load" data-tags="perf" style="--i: 9"><span class="v nw">45%</span><span class="c">shorter dashboard load times</span></a></li>
+              <li><a class="outcome" href="#ev-sumo-memory" data-tags="perf" style="--i: 10"><span class="v nw">25%</span><span class="c">less memory in large-scale data visualizations</span></a></li>
+            </ul>
+          </li>
+          <li class="irow" data-role="dassault">
+            <a class="who micro" href="#role-dassault"><span class="co">Dassault Systèmes</span> R&amp;D Software Engineer <span class="hits" hidden></span></a>
+            <ul class="outcomes">
+              <li><a class="outcome" href="#ev-dassault-library" data-tags="fe" style="--i: 11"><span class="v">Company-wide</span><span class="c">Web UI template library used by every feature team</span></a></li>
+            </ul>
+          </li>
+          <li class="irow" data-role="cognizant">
+            <a class="who micro" href="#role-cognizant"><span class="co">Cognizant</span> Programmer Analyst <span class="hits" hidden></span></a>
+            <ul class="outcomes">
+              <li><a class="outcome" href="#ev-cognizant-testing" data-tags="rel" style="--i: 12"><span class="v nw">25%</span><span class="c">less manual testing from a test automation framework</span></a></li>
+            </ul>
+          </li>
+        </ol>
+
+        <section class="sec" id="experience" tabindex="-1" aria-labelledby="experience-title" style="margin-top: 64px">
+          <div class="label-row"><span class="corner" aria-hidden="true"></span><span class="num">03.</span><h2 id="experience-title">Experience</h2><span class="rule"></span></div>
+          <ol class="exp">
+            <li>
+              <article class="job" id="role-autodesk" data-role="autodesk" tabindex="-1">
+                <p class="period micro">May 2026 — Present<br>Remote</p>
+                <div>
+                  <h3>Principal Engineer · <span class="co">Autodesk</span> <span class="match" hidden></span></h3>
+                  <p class="group micro">Post-Purchase – Autodesk Account Subscriptions &amp; Billing</p>
+                  <ul class="hl">
+                    <li id="ev-autodesk-site" tabindex="-1" data-tags="fe lead ai"><span class="t">As lead frontend engineer, own Autodesk’s personalized, AI-driven billing website, used by <strong>thousands of customers daily</strong>, and led frontend delivery of the flagship Account Subscriptions 3.0 redesign.</span></li>
+                    <li id="ev-autodesk-assistant" tabindex="-1" data-tags="ai rel"><span class="t">Originated a human-supervised AI on-call triage assistant that finds the failing layer and its owner, and took it through enterprise AI governance, security review, and AWS deployment with <strong>1,200+ automated tests</strong>. <a class="more" href="#case-study">How it works ↓</a></span></li>
+                    <li id="ev-autodesk-approval" tabindex="-1" data-tags="ai lead"><span class="t">Documented the enterprise approval path for AI services so the next service owner can repeat it, lowering the barrier to shipping governed AI at Autodesk.</span></li>
+                    <li id="ev-autodesk-forum" tabindex="-1" data-tags="ai lead"><span class="t">Launched an AI adoption forum across <strong>three teams</strong>, turning demos into a prioritized, owned backlog, and standardized a 10-server MCP tool stack and reusable agent skills.</span></li>
+                    <li data-tags="lead rel"><span class="t">Authored engineering standards and architecture proposals, including a UI readiness framework and a distributed tracing initiative, to raise quality across teams.</span></li>
+                    <li data-tags="fe"><span class="t">Strengthened the shared design system so product copy and visual changes ship without a package release, and built components for reuse by sister teams.</span></li>
+                  </ul>
+                  <ul class="tags"><li><span class="pill">Applied AI</span></li><li><span class="pill">AI Governance</span></li><li><span class="pill">MCP</span></li><li><span class="pill">Design Systems</span></li></ul>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="job" id="role-shopify" data-role="shopify" tabindex="-1">
+                <p class="period micro">Aug 2025 — May 2026<br>Remote</p>
+                <div>
+                  <h3>Lead Full-Stack Engineer · <span class="co">Shopify</span> <span class="match" hidden></span></h3>
+                  <ul class="hl">
+                    <li id="ev-shopify-ads" tabindex="-1" data-tags="lead"><span class="t">Led engineering for the Ads 3P team (real-time bidding, merchant dashboards, email/SMS automations), combining hands-on leadership with mentoring on frontend architecture, code quality, and delivery velocity.</span></li>
+                    <li data-tags="fe"><span class="t">Built a high-integrity event tracking solution across Web and Native platforms, ensuring reliable real-time signals for Meta Pixel and Google Tag Manager to improve merchant conversion tracking accuracy.</span></li>
+                    <li id="ev-shopify-dco" tabindex="-1" data-tags="perf fe"><span class="t">Developed a Dynamic Creative Optimization (DCO) system spanning frontend and backend layers, serving ad creatives within <strong>150ms</strong> response time with full-stack ownership from UI rendering to data layer integration.</span></li>
+                    <li data-tags="rel"><span class="t">Contributed to the on-call rotation (weekly quarterly shifts), driving system health, security hardening, and engineering culture through structured code reviews and knowledge-sharing sessions.</span></li>
+                  </ul>
+                  <ul class="tags"><li><span class="pill">Ads</span></li><li><span class="pill">DCO</span></li><li><span class="pill">Meta Pixel</span></li><li><span class="pill">Google Tag Manager</span></li></ul>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="job" id="role-aws" data-role="aws" tabindex="-1">
+                <p class="period micro">Jun 2022 — Aug 2025<br>Boston, MA</p>
+                <div>
+                  <h3>Senior Engineer · <span class="co">Amazon Web Services</span> <span class="match" hidden></span></h3>
+                  <p class="group micro">Amazon Ads – Full-Stack Digital Experiences</p>
+                  <ul class="hl">
+                    <li data-tags="fe"><span class="t">Designed and shipped <a href="https://advertising.amazon.com/resources/whats-new/ads-data-manager-beta" target="_blank" rel="noopener">Ads Data Manager</a>, a cloud-based data onboarding and activation SPA using React, TypeScript, and GraphQL, delivering production-ready digital workflows for enterprise advertisers.</span></li>
+                    <li data-tags="fe"><span class="t">Implemented Backend-for-Frontend (BFF) middleware using GraphQL to stitch multiple microservice APIs, optimizing client-server communication and streamlining complex advertiser data flows.</span></li>
+                    <li id="ev-aws-caching" tabindex="-1" data-tags="perf"><span class="t">Achieved a 60% reduction in backend API calls through GraphQL query batching and multi-level caching (client, CDN), reducing average response time from <strong>850ms to 320ms under peak traffic</strong>.</span></li>
+                    <li data-tags="fe"><span class="t">Developed a Server-Driven UI architecture that delivered UI configurations from the backend, enabling real-time interface updates without client deployments and supporting A/B experimentation at scale.</span></li>
+                    <li data-tags="perf fe"><span class="t">Built a stream-based data ingestion interface enabling advertisers to upload and process large datasets via chunked streaming, improving performance and memory efficiency for high-volume workflows.</span></li>
+                    <li data-tags=""><span class="t">Led <strong>infrastructure provisioning with AWS CDK</strong> for secure self-service deployments across multiple accounts and regions, reducing deployment complexity and accelerating release cycles.</span></li>
+                  </ul>
+                  <p class="group micro">AWS CloudWatch – Real-Time Monitoring &amp; Observability</p>
+                  <ul class="hl">
+                    <li data-tags="ai fe rel"><span class="t">Engineered <a href="https://aws.amazon.com/blogs/aws/amazon-cloudwatch-logs-now-offers-automated-pattern-analytics-and-anomaly-detection/" target="_blank" rel="noopener">AI-powered anomaly detection dashboards</a> that transformed complex ML outputs into intuitive visualizations and interactive tables, enabling non-technical users to identify log pattern anomalies.</span></li>
+                    <li id="ev-aws-livetail" tabindex="-1" data-tags="perf fe rel"><span class="t">Built a high-performance <a href="https://aws.amazon.com/blogs/mt/announcing-live-tail-feature-for-amazon-cloudwatch-logs/" target="_blank" rel="noopener">CloudWatch LiveTail</a> system using WebSocket architecture and Web Workers, delivering real-time log streaming at <strong>10,000+ events/second</strong> while maintaining a responsive UI.</span></li>
+                    <li data-tags="rel perf"><span class="t">Implemented an extensive telemetry system capturing client-side latency, API errors, and behavioral metrics to enable deep performance analysis and data-driven product decisions.</span></li>
+                  </ul>
+                  <ul class="tags"><li><span class="pill">React</span></li><li><span class="pill">TypeScript</span></li><li><span class="pill">GraphQL</span></li><li><span class="pill">Server-Driven UI</span></li><li><span class="pill">AWS CDK</span></li><li><span class="pill">WebSockets</span></li></ul>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="job" id="role-sumo" data-role="sumo" tabindex="-1">
+                <p class="period micro">Sep 2021 — May 2022<br>Boston, MA</p>
+                <div>
+                  <h3>Senior Frontend Engineer · <span class="co">Sumo Logic</span> <span class="match" hidden></span></h3>
+                  <ul class="hl">
+                    <li data-tags="fe lead"><span class="t">Led development of high-performance data analytics dashboards with a focus on rapid prototyping, iterative delivery, and cross-functional collaboration with product and design stakeholders. (<a href="https://www.youtube.com/watch?v=A-O_E-NbxN8" target="_blank" rel="noopener">Demo</a>)</span></li>
+                    <li id="ev-sumo-memory" tabindex="-1" data-tags="perf"><span class="t">Detected and resolved JavaScript memory leaks in large-scale data visualization components using Chrome DevTools, reducing memory consumption by <strong>25%</strong>.</span></li>
+                    <li data-tags="fe"><span class="t">Established a comprehensive design system using Atomic Design principles, enabling faster prototyping and consistent user experiences across the product suite.</span></li>
+                    <li id="ev-sumo-load" tabindex="-1" data-tags="perf"><span class="t">Improved dashboard load times by <strong>45%</strong> through tree shaking, lazy loading, and performance monitoring with well-defined SLIs.</span></li>
+                  </ul>
+                  <ul class="tags"><li><span class="pill">Dashboards</span></li><li><span class="pill">Atomic Design</span></li><li><span class="pill">Chrome DevTools</span></li></ul>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="job" id="role-dassault" data-role="dassault" tabindex="-1">
+                <p class="period micro">Jan 2019 — Aug 2021<br>Waltham, MA</p>
+                <div>
+                  <h3>R&amp;D Software Engineer · <span class="co">Dassault Systèmes</span> <span class="match" hidden></span></h3>
+                  <ul class="hl">
+                    <li id="ev-dassault-library" tabindex="-1" data-tags="fe"><span class="t">Designed, developed, and maintained a Web UI Template library for xApps (online CAD applications), creating reusable components consumed by all feature teams company-wide. (<a href="https://www.youtube.com/watch?v=2pTUcYrXV-Y" target="_blank" rel="noopener">Demo</a>)</span></li>
+                    <li data-tags="fe"><span class="t">Ensured full cross-platform compatibility for mobile and touch device workflows, delivering seamless user experiences across devices.</span></li>
+                    <li data-tags="perf"><span class="t">Optimized network performance through resource hinting, tree shaking, compression, and caching; enhanced runtime efficiency with Web Workers and LocalStorage strategies.</span></li>
+                  </ul>
+                  <ul class="tags"><li><span class="pill">Web UI Library</span></li><li><span class="pill">Web Workers</span></li><li><span class="pill">Mobile &amp; Touch</span></li></ul>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="job" id="role-cognizant" data-role="cognizant" tabindex="-1">
+                <p class="period micro">Jul 2014 — Nov 2016<br>India</p>
+                <div>
+                  <h3>Programmer Analyst · <span class="co">Cognizant Technology Solutions</span> <span class="match" hidden></span></h3>
+                  <ul class="hl">
+                    <li data-tags="fe"><span class="t">Enhanced digital banking payment platforms, including <a href="https://cbonline.lloydsbank.com/" target="_blank" rel="noopener">Lloyds Bank Commercial Banking Online</a>, with responsive, cross-browser, and accessibility-compliant interfaces for major financial services clients.</span></li>
+                    <li id="ev-cognizant-testing" tabindex="-1" data-tags="rel"><span class="t">Designed and implemented a test automation framework across Chrome and Firefox, reducing manual testing efforts by <strong>25%</strong> and streamlining QA workflows.</span></li>
+                  </ul>
+                  <ul class="tags"><li><span class="pill">Banking</span></li><li><span class="pill">Accessibility</span></li><li><span class="pill">Test Automation</span></li></ul>
+                </div>
+              </article>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <section class="sec" id="case-study" tabindex="-1" aria-labelledby="case-title">
+        <div class="label-row"><span class="corner" aria-hidden="true"></span><span class="num">04.</span><h2 id="case-title">Case study</h2><span class="rule"></span></div>
+        <p class="case-title">Inside the on-call triage assistant</p>
+        <p class="case-meta micro">Autodesk · 2026 · Python · LangGraph · Amazon Bedrock · MCP</p>
+        <div class="prose" style="margin-top: 16px"><p>Originated at Autodesk and taken through enterprise AI governance, security review, and AWS deployment. It works read-only, never remediates on its own, and a person reviews every action.</p></div>
+        <ol class="flow">
+          <li><span class="micro num">01. Alert</span><h3>An alert fires</h3><p>An on-call alert opens an investigation on a production service.</p></li>
+          <li><span class="micro num">02. Investigate</span><h3>Read-only queries</h3><p>Queries observability and source-control systems through allow-listed integrations, grounded in a knowledge graph of team knowledge.</p></li>
+          <li><span class="micro num">03. Localize</span><h3>Layer and owner</h3><p>Reports which layer failed and which team owns it, instead of summarizing the alert.</p></li>
+          <li><span class="micro num">04. Review</span><h3>A person decides</h3><p>An on-call engineer reviews every action. Nothing is remediated automatically.</p></li>
+        </ol>
+        <ul class="specs">
+          <li><b>1,200+</b><span class="micro">automated tests</span></li>
+          <li><b>Read-only</b><span class="micro">allow-listed integrations</span></li>
+          <li><b>Eval harness</b><span class="micro">measurable, grounded answers</span></li>
+          <li><b>Every action</b><span class="micro">reviewed by an engineer</span></li>
+        </ul>
+      </section>
+
+      <section class="sec" id="skills" tabindex="-1" aria-labelledby="skills-title">
+        <div class="label-row"><span class="corner" aria-hidden="true"></span><span class="num">05.</span><h2 id="skills-title">Skills</h2><span class="rule"></span></div>
+        <dl class="skills">
+          <div><dt class="micro">Frontend</dt><dd><ul class="tags"><li><span class="pill">React 18+</span></li><li><span class="pill">TypeScript</span></li><li><span class="pill">JavaScript (ES6+)</span></li><li><span class="pill">Next.js</span></li><li><span class="pill">HTML5</span></li><li><span class="pill">CSS3</span></li><li><span class="pill">Tailwind</span></li><li><span class="pill">SCSS</span></li><li><span class="pill">Redux</span></li><li><span class="pill">React Query</span></li><li><span class="pill">RxJS</span></li><li><span class="pill">Storybook</span></li><li><span class="pill">Design Systems</span></li><li><span class="pill">Accessibility (ARIA, WCAG)</span></li><li><span class="pill">Web Vitals</span></li></ul></dd></div>
+          <div><dt class="micro">AI &amp; agentic systems</dt><dd><ul class="tags"><li><span class="pill">LangGraph</span></li><li><span class="pill">Amazon Bedrock</span></li><li><span class="pill">Model Context Protocol (MCP)</span></li><li><span class="pill">AG-UI</span></li><li><span class="pill">A2UI</span></li><li><span class="pill">A2A</span></li><li><span class="pill">Agentic Workflows</span></li><li><span class="pill">RAG</span></li><li><span class="pill">Knowledge Graphs (Neo4j)</span></li><li><span class="pill">LLM Evaluation</span></li><li><span class="pill">Human-in-the-Loop</span></li><li><span class="pill">Anthropic &amp; OpenAI APIs</span></li></ul></dd></div>
+          <div><dt class="micro">Backend &amp; APIs</dt><dd><ul class="tags"><li><span class="pill">Node.js</span></li><li><span class="pill">Python</span></li><li><span class="pill">FastAPI</span></li><li><span class="pill">GraphQL</span></li><li><span class="pill">REST</span></li><li><span class="pill">Java</span></li><li><span class="pill">Spring Boot</span></li><li><span class="pill">SQL</span></li><li><span class="pill">Kafka</span></li><li><span class="pill">WebSockets</span></li></ul></dd></div>
+          <div><dt class="micro">Cloud, DevOps &amp; observability</dt><dd><ul class="tags"><li><span class="pill">AWS (CDK, CloudWatch, Lambda, S3, EC2)</span></li><li><span class="pill">Docker</span></li><li><span class="pill">Kubernetes</span></li><li><span class="pill">CI/CD (GitHub Actions, GitLab)</span></li><li><span class="pill">Webpack</span></li><li><span class="pill">Infrastructure as Code</span></li><li><span class="pill">Splunk</span></li><li><span class="pill">Dynatrace</span></li></ul></dd></div>
+          <div><dt class="micro">Testing &amp; quality</dt><dd><ul class="tags"><li><span class="pill">Jest</span></li><li><span class="pill">Cypress</span></li><li><span class="pill">Playwright</span></li><li><span class="pill">React Testing Library</span></li><li><span class="pill">Chrome DevTools Profiling</span></li></ul></dd></div>
+          <div><dt class="micro">Leadership</dt><dd><ul class="tags"><li><span class="pill">Technical Strategy</span></li><li><span class="pill">Engineering Standards</span></li><li><span class="pill">Squad Leadership</span></li><li><span class="pill">Technical Mentoring</span></li><li><span class="pill">Agile/Scrum</span></li><li><span class="pill">Code Reviews</span></li><li><span class="pill">Cross-Team Collaboration</span></li><li><span class="pill">Stakeholder Communication</span></li><li><span class="pill">On-Call Ownership</span></li></ul></dd></div>
+        </dl>
+      </section>
+
+      <section class="sec" id="education" tabindex="-1" aria-labelledby="education-title">
+        <div class="label-row"><span class="corner" aria-hidden="true"></span><span class="num">06.</span><h2 id="education-title">Education &amp; community</h2><span class="rule"></span></div>
+        <ol class="entries">
+          <li><p class="micro">Jan 2017 — Dec 2018 · Boston, MA</p><h3>MS in Informatics</h3><p class="sub">Northeastern University</p></li>
+          <li><p class="micro">Community</p><h3>ADPList Mentor</h3><p class="sub">Recognized as a Top 10 UX Engineering Mentor</p></li>
+        </ol>
+      </section>
+
+      <footer class="foot">
+        <p class="micro">Built from the October 2026 résumé in the irah.dev design language: Inter, Space Grotesk, and JetBrains Mono.</p>
+        <p class="micro"><a class="flip" href="https://www.irah.dev/" target="_blank" rel="noopener" data-flip="hari.dev">irah.dev</a></p>
+      </footer>
+    </main>
+  </div>
+</div>
+
+<script>
+(() => {
+  const PDF = "Hariprasath_Periyasamy_Resume.pdf";
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const root = document.documentElement;
+
+  /* ---------- theme highlighting ---------- */
+  const LABELS = {
+    ai: "Applied AI",
+    fe: "Frontend & design systems",
+    perf: "Performance",
+    rel: "Reliability & observability",
+    lead: "Leadership",
+  };
+  const items = [...document.querySelectorAll(".hl li")];
+  const jobs = [...document.querySelectorAll("article.job")];
+  const rows = [...document.querySelectorAll(".irow[data-role]")];
+  const outcomes = [...document.querySelectorAll(".outcome")];
+  const chips = [...document.querySelectorAll(".chip[data-filter]")];
+  const query = document.querySelector(".query");
+  const tagsOf = (el) => (el.dataset.tags || "").split(" ").filter(Boolean);
+
+  chips.forEach((chip) => {
+    const f = chip.dataset.filter;
+    const n = f === "all" ? items.length : items.filter((li) => tagsOf(li).includes(f)).length;
+    chip.querySelector(".n").textContent = n;
+  });
+
+  const setQuery = (parts) => {
+    query.textContent = "";
+    parts.forEach(([text, bold]) => {
+      const node = bold ? document.createElement("b") : document.createTextNode(text);
+      if (bold) node.textContent = text;
+      query.appendChild(node);
+    });
+  };
+
+  const apply = (f) => {
+    const filtering = f !== "all";
+    chips.forEach((chip) => chip.setAttribute("aria-pressed", String(chip.dataset.filter === f)));
+    const perRole = {};
+    items.forEach((li) => {
+      const hit = filtering && tagsOf(li).includes(f);
+      li.classList.toggle("hit", hit);
+      li.classList.toggle("miss", filtering && !hit);
+      if (hit) {
+        const role = li.closest("article.job").dataset.role;
+        perRole[role] = (perRole[role] || 0) + 1;
+      }
+    });
+    jobs.forEach((job) => {
+      const n = perRole[job.dataset.role] || 0;
+      const total = job.querySelectorAll(".hl li").length;
+      const badge = job.querySelector(".match");
+      badge.hidden = !filtering || n === 0;
+      badge.textContent = n + " of " + total + " match";
+    });
+    rows.forEach((row) => {
+      const n = perRole[row.dataset.role] || 0;
+      row.classList.toggle("dim", filtering && n === 0);
+      const badge = row.querySelector(".hits");
+      badge.hidden = !filtering || n === 0;
+      badge.textContent = String(n);
+    });
+    outcomes.forEach((outcome) => {
+      const hit = filtering && tagsOf(outcome).includes(f);
+      outcome.classList.toggle("hit", hit);
+      outcome.classList.toggle("miss", filtering && !hit);
+    });
+    if (!filtering) {
+      setQuery([[String(items.length), true], [" highlights across ", false], [String(jobs.length), true], [" roles", false]]);
+    } else {
+      const total = Object.values(perRole).reduce((a, b) => a + b, 0);
+      const roleCount = Object.keys(perRole).length;
+      setQuery([[LABELS[f], true], [": " + total + " of " + items.length + " highlights, in " + roleCount + (roleCount === 1 ? " role" : " roles"), false]]);
+    }
+  };
+  chips.forEach((chip) => chip.addEventListener("click", () => apply(chip.dataset.filter)));
+  apply("all");
+
+  /* ---------- in-page links: smooth scroll and a brief highlight on arrival ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const id = link.getAttribute("href").slice(1);
+      const target = id && document.getElementById(id);
+      if (!target) return;
+      event.preventDefault();
+      const isEvidence = link.classList.contains("outcome");
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: isEvidence ? "center" : "start" });
+      target.focus({ preventScroll: true });
+      if (isEvidence || link.classList.contains("who")) {
+        target.classList.remove("flash");
+        void target.offsetWidth;
+        target.classList.add("flash");
+      }
+    });
+  });
+
+  /* ---------- scroll nav: mark the section in view ---------- */
+  const navLinks = [...document.querySelectorAll(".scrollnav a[data-section]")];
+  if ("IntersectionObserver" in window) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((a) => a.classList.toggle("active", a.dataset.section === entry.target.id));
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    navLinks.forEach((a) => {
+      const section = document.getElementById(a.dataset.section);
+      if (section) sectionObserver.observe(section);
+    });
+    navLinks[0] && navLinks[0].classList.add("active");
+
+    const filterBar = document.querySelector(".filters");
+    const sentinel = document.querySelector(".filters-sentinel");
+    new IntersectionObserver(([entry]) => {
+      filterBar.classList.toggle("stuck", !entry.isIntersecting && entry.boundingClientRect.top < 120);
+    }, { rootMargin: "-58px 0px 0px 0px" }).observe(sentinel);
+  }
+
+  /* ---------- theme toggle (this view only) ---------- */
+  const toggle = document.getElementById("theme-toggle");
+  const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const paintToggle = () => {
+    const dark = isDark();
+    toggle.querySelector(".i-moon").hidden = dark;
+    toggle.querySelector(".i-sun").hidden = !dark;
+    toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+  };
+  toggle.addEventListener("click", () => {
+    root.dataset.theme = isDark() ? "light" : "dark";
+    paintToggle();
+  });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", paintToggle);
+  paintToggle();
+
+  /* ---------- irah.dev ↔ hari.dev ---------- */
+  document.querySelectorAll(".flip").forEach((el) => {
+    const front = el.textContent, back = el.dataset.flip;
+    const show = (text) => () => { el.textContent = text; };
+    el.addEventListener("mouseenter", show(back));
+    el.addEventListener("mouseleave", show(front));
+    el.addEventListener("focus", show(back));
+    el.addEventListener("blur", show(front));
+  });
+
+  /* ---------- copy email ---------- */
+  document.querySelectorAll("[data-copy]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const original = button.textContent;
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        button.textContent = "Copied";
+      } catch (err) {
+        const addr = button.parentElement.querySelector(".addr");
+        const range = document.createRange();
+        range.selectNodeContents(addr);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        button.textContent = "Selected";
+      }
+      setTimeout(() => { button.textContent = original; }, 1800);
+    });
+  });
+
+  /* ---------- PDF download ---------- */
+  const downloadButtons = [...document.querySelectorAll("[data-download]")];
+  const host = window.claude;
+  if (!host || typeof host.use !== "function") {
+    // A standalone copy (for example on irah.dev) can use a plain link.
+    downloadButtons.forEach((button) => {
+      const link = document.createElement("a");
+      link.className = button.className;
+      link.href = PDF;
+      link.setAttribute("download", PDF);
+      link.innerHTML = button.innerHTML;
+      button.replaceWith(link);
+    });
+  } else {
+    host.use("downloads").then((downloads) => {
+      if (!downloads) return;
+      const hideAll = () => downloadButtons.forEach((b) => { b.hidden = true; });
+      downloadButtons.forEach((button) => {
+        const original = button.innerHTML;
+        const settle = (text) => {
+          button.textContent = text;
+          setTimeout(() => { button.innerHTML = original; button.disabled = false; }, 2200);
+        };
+        button.hidden = false;
+        button.addEventListener("click", async () => {
+          if (button.disabled) return;
+          button.disabled = true;
+          button.textContent = "Preparing PDF";
+          let blob;
+          try {
+            const response = await fetch(PDF);
+            if (!response.ok) throw new Error("status " + response.status);
+            blob = await response.blob();
+          } catch (err) {
+            settle("PDF not found");
+            return;
+          }
+          button.textContent = "Confirm to save";
+          try {
+            const result = await downloads.save({ filename: PDF, data: blob });
+            settle(result && result.status === "delivered" ? "Sent" : "Saved");
+          } catch (err) {
+            const code = err && err.code;
+            if (code === "declined") { button.innerHTML = original; button.disabled = false; }
+            else if (code === "rate_limited") { settle("Try again shortly"); }
+            else if (code === "extension_not_enabled" || code === "rejected_extension") { settle("PDF unavailable here"); }
+            else if (code === "bad_request" || code === "too_large" || code === "transform_error") { settle("Download failed"); }
+            else { hideAll(); }
+          }
+        });
+      });
+    }).catch(() => {});
+  }
+})();
+</script>
